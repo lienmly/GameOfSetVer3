@@ -9,13 +9,16 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     var setGame = SetGame()
+    
+    @IBOutlet var cardButtons: [UIButton]!
+    @IBAction func touchCard(_ sender: UIButton) {
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        print(setGame.cards)
     }
 }
 
