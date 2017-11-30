@@ -12,10 +12,30 @@ class ViewController: UIViewController {
     
     var setGame = SetGame()
     lazy var allAvailableCardPosition = Array(0..<cardButtons.count)
+    let colorPair = [Card.Color.one:#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), .two:#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1), .three:#colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)]
+    let symbolPair = [Card.Symbol.one:"▲", .two:"●", .three:"■"]
+    var cardPosition = [Int:Int]() // [cardButtonIndex:cardUniqueID]
     
     @IBOutlet var cardButtons: [UIButton]!
     @IBAction func touchCard(_ sender: UIButton) {
-        print("Card is touched")
+        if let buttonIndex = cardButtons.index(of: sender), let cardID = cardPosition[buttonIndex] {
+            if setGame.numberOfCardsSelected < 3 {
+                if setGame.selectMatchCards[cardID] == nil {
+                    // Select
+                    setGame.selectCard(id: cardID)
+                    sender.layer.borderWidth = 5.0
+                    sender.layer.borderColor = UIColor.green.cgColor
+                } else {
+                    // Deselect
+                    setGame.deSelectCard(id: cardID)
+                    sender.layer.borderWidth = 0.0
+                }
+            }
+            
+            updateViewFromModel()
+        } else {
+            print("(1)This button is not in cardButtons or (2)No card at this button")
+        }
     }
     @IBAction func dealThreeMoreCard(_ sender: UIButton) {
         setGame.dealCard(total: allAvailableCardPosition.count < 3 ? allAvailableCardPosition.count : 3)
@@ -32,38 +52,29 @@ class ViewController: UIViewController {
     
     private func updateViewFromModel() {
         // Display deal card & hide the rest
-        // -- Make card visible on selected random positions
-        for dealCardIndex in 0..<setGame.currentDealCardNumber {
-            let randomCardButtonIndex = allAvailableCardPosition.remove(at: Int(arc4random_uniform(UInt32(allAvailableCardPosition.count))))
-            drawCard(on: cardButtons[randomCardButtonIndex], dealCardIndex: setGame.dealCards.count - dealCardIndex - 1)
-        }
-        // -- Make card invisible on the rest of cardButtons positions
-        for positionIndex in allAvailableCardPosition {
-            cardButtons[positionIndex].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
-            cardButtons[positionIndex].setTitle("", for: .normal)
-            cardButtons[positionIndex].isEnabled = false
+        if setGame.currentDealCardNumber > 0 {
+            // -- Make card visible on selected random positions
+            for dealCardIndex in 0..<setGame.currentDealCardNumber {
+                let randomCardButtonIndex = allAvailableCardPosition.remove(at: Int(arc4random_uniform(UInt32(allAvailableCardPosition.count))))
+                drawCard(on: cardButtons[randomCardButtonIndex], dealCardIndex: setGame.dealCards.count - dealCardIndex - 1)
+            }
+            // -- Make card invisible on the rest of cardButtons positions
+            for positionIndex in allAvailableCardPosition {
+                cardButtons[positionIndex].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+                cardButtons[positionIndex].setTitle("", for: .normal)
+                cardButtons[positionIndex].isEnabled = false
+            }
+            setGame.currentDealCardNumber = 0
         }
     }
     
     private func drawCard(on cardToDrawOn: UIButton, dealCardIndex associatedDealCardIndex: Int) {
-        let numberOnCard = setGame.dealCards[associatedDealCardIndex].number
-        let symbolOnCard = setGame.dealCards[associatedDealCardIndex].symbol
+        cardPosition[cardButtons.index(of: cardToDrawOn)!] = setGame.dealCards[associatedDealCardIndex].uniqueID
         let shadingOnCard = setGame.dealCards[associatedDealCardIndex].shading
-        let colorOnCard = setGame.dealCards[associatedDealCardIndex].color
-        
+        let titleColor = colorPair[setGame.dealCards[associatedDealCardIndex].color]!
+        let titleContent = symbolPair[setGame.dealCards[associatedDealCardIndex].symbol]!.multiply(by: setGame.dealCards[associatedDealCardIndex].number.rawValue)
         cardToDrawOn.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
-        var titleColor: UIColor
-        var titleContent: String
-        
-        switch colorOnCard {
-        case .one: titleColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1) case .two: titleColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1) case .three: titleColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
-        }
-    
-        switch symbolOnCard {
-        case .one: titleContent = "▲".multiply(by: numberOnCard.rawValue)
-        case .two: titleContent = "●".multiply(by: numberOnCard.rawValue)
-        case .three: titleContent = "■".multiply(by: numberOnCard.rawValue)
-        }
+        cardToDrawOn.isEnabled = true
         
         let attributes: [NSAttributedStringKey : Any] = [
             .foregroundColor : titleColor.withAlphaComponent(shadingOnCard == .two ? CGFloat(0.40) : CGFloat(1)),

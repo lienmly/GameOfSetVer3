@@ -9,29 +9,36 @@
 import Foundation
 
 struct Card {
-    
     let number: Number
     let symbol: Symbol
     let shading: Shading
     let color: Color
+    let uniqueID: Int
     
-    enum Number: Int {
-        case one, two, three
+    enum Number: Int { case one, two, three
         static var all = [Number.one, .two, .three]
     }
-    
-    enum Symbol: Int {
-        case one, two, three
+    enum Symbol: Int { case one, two, three
         static var all = [Symbol.one, .two, .three]
     }
-    
-    enum Shading: Int {
-        case one, two, three
+    enum Shading: Int { case one, two, three
         static var all = [Shading.one, .two, .three]
     }
-    
-    enum Color: Int {
-        case one, two, three
+    enum Color: Int { case one, two, three
         static var all = [Color.one, .two, .three]
+    }
+    
+    init(number: Number, symbol: Symbol, shading: Shading, color: Color) {
+        uniqueID = Card.getUniqueIdentifier()
+        self.number = number
+        self.symbol = symbol
+        self.shading = shading
+        self.color = color
+    }
+    
+    static var idFactory = 0
+    static func getUniqueIdentifier() -> Int {
+        idFactory += 1
+        return idFactory
     }
 }
