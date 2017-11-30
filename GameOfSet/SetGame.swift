@@ -10,6 +10,7 @@ import Foundation
 
 class SetGame {
     var cards = [Card]()
+    var dealCards = [Card]()
     
     init() {
         // Add 81 cards in the deck
@@ -22,5 +23,23 @@ class SetGame {
                 }
             }
         }
+    }
+    
+    // Public function
+    func dealCard(total numberOfDealCard: Int) {
+        for _ in 0..<numberOfDealCard {
+            let randomIndex = Int(arc4random_uniform(UInt32(cards.count)))
+            dealCards.append(cards.remove(at: randomIndex))
+        }
+    }
+}
+
+extension String {
+    func multiply(by numberOfRepeats: Int) -> String {
+        var newString = ""
+        for _ in 0...numberOfRepeats {
+            newString += self
+        }
+        return newString
     }
 }
