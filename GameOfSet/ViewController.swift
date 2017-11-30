@@ -11,40 +11,37 @@ import UIKit
 class ViewController: UIViewController {
     
     var setGame = SetGame()
-    let numberOfCardDealAtStart = 12
+    lazy var allAvailableCardPosition = Array(0..<cardButtons.count)
     
     @IBOutlet var cardButtons: [UIButton]!
     @IBAction func touchCard(_ sender: UIButton) {
+        print("Card is touched")
+    }
+    @IBAction func dealThreeMoreCard(_ sender: UIButton) {
+        setGame.dealCard(total: allAvailableCardPosition.count < 3 ? allAvailableCardPosition.count : 3)
+        updateViewFromModel()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Initially deal 12 cards at game start
-        setGame.dealCard(total: numberOfCardDealAtStart)
+        // Deal 12 cards at game start
+        setGame.dealCard(total: 12)
         updateViewFromModel()
     }
     
     private func updateViewFromModel() {
         // Display deal card & hide the rest
-        var dealCardButtonIndices = Set<Int>()
-        while dealCardButtonIndices.count < numberOfCardDealAtStart {
-            let randomCardButtonIndex = Int(arc4random_uniform(UInt32(cardButtons.count)))
-            dealCardButtonIndices.insert(randomCardButtonIndex)
+        // -- Make card visible on selected random positions
+        for dealCardIndex in 0..<setGame.currentDealCardNumber {
+            let randomCardButtonIndex = allAvailableCardPosition.remove(at: Int(arc4random_uniform(UInt32(allAvailableCardPosition.count))))
+            drawCard(on: cardButtons[randomCardButtonIndex], dealCardIndex: setGame.dealCards.count - dealCardIndex - 1)
         }
-        
-        var associatedCardIndex = 0
-        for cardButtonIndex in cardButtons.indices {
-            if dealCardButtonIndices.contains(cardButtonIndex), associatedCardIndex <= numberOfCardDealAtStart {
-                // Make card visible
-                drawCard(on: cardButtons[cardButtonIndex], dealCardIndex: associatedCardIndex)
-                associatedCardIndex += 1
-            }
-            else {
-                // Make card invisible
-                cardButtons[cardButtonIndex].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
-                cardButtons[cardButtonIndex].setTitle("", for: .normal)
-            }
+        // -- Make card invisible on the rest of cardButtons positions
+        for positionIndex in allAvailableCardPosition {
+            cardButtons[positionIndex].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+            cardButtons[positionIndex].setTitle("", for: .normal)
+            cardButtons[positionIndex].isEnabled = false
         }
     }
     
@@ -54,7 +51,7 @@ class ViewController: UIViewController {
         let shadingOnCard = setGame.dealCards[associatedDealCardIndex].shading
         let colorOnCard = setGame.dealCards[associatedDealCardIndex].color
         
-        cardToDrawOn.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+        cardToDrawOn.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
         var titleColor: UIColor
         var titleContent: String
         
@@ -70,7 +67,7 @@ class ViewController: UIViewController {
         
         let attributes: [NSAttributedStringKey : Any] = [
             .foregroundColor : titleColor.withAlphaComponent(shadingOnCard == .two ? CGFloat(0.40) : CGFloat(1)),
-            .strokeWidth : shadingOnCard == .three ? 3 : -1
+            .strokeWidth : shadingOnCard == .three ? 15 : -1
         ]
         
         let attribtext = NSAttributedString(string: titleContent, attributes: attributes)

@@ -11,6 +11,7 @@ import Foundation
 class SetGame {
     var cards = [Card]()
     var dealCards = [Card]()
+    var currentDealCardNumber = 0
     
     init() {
         // Add 81 cards in the deck
@@ -27,6 +28,7 @@ class SetGame {
     
     // Public function
     func dealCard(total numberOfDealCard: Int) {
+        currentDealCardNumber = numberOfDealCard
         for _ in 0..<numberOfDealCard {
             let randomIndex = Int(arc4random_uniform(UInt32(cards.count)))
             dealCards.append(cards.remove(at: randomIndex))
