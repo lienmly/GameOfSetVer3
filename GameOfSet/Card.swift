@@ -14,6 +14,7 @@ struct Card {
     let shading: Shading
     let color: Color
     let uniqueID: Int
+    var positionOnScreen: Int
     
     enum Number: Int { case one, two, three
         static var all = [Number.one, .two, .three]
@@ -37,6 +38,7 @@ struct Card {
         self.symbol = symbol
         self.shading = shading
         self.color = color
+        self.positionOnScreen = 0
     }
     
     static var idFactory = 0

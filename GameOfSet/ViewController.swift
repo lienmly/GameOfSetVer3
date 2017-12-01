@@ -43,9 +43,17 @@ class ViewController: UIViewController {
         if setGame.currentDealCardNumber > 0 {
             // -- Make card visible on selected random positions
             for dealCardIndex in 0..<setGame.currentDealCardNumber {
-                let randomCardButtonIndex = allAvailableCardPosition.remove(at: Int(arc4random_uniform(UInt32(allAvailableCardPosition.count))))
-                drawCard(on: cardButtons[randomCardButtonIndex], dealCardIndex: setGame.dealCards.count - dealCardIndex - 1)
+                var position = 0
+                if setGame.threePositionsOfRecentlyMatchedCards.count > 0 {
+                    position = setGame.threePositionsOfRecentlyMatchedCards.remove(at: 0)
+                } else {
+                    let randomCardButtonIndex = allAvailableCardPosition.remove(at: Int(arc4random_uniform(UInt32(allAvailableCardPosition.count))))
+                    position = randomCardButtonIndex
+                }
+                setGame.dealCards[setGame.dealCards.count - dealCardIndex - 1].positionOnScreen = position
+                drawCard(on: cardButtons[position], dealCardIndex: setGame.dealCards.count - dealCardIndex - 1)
             }
+            setGame.threePositionsOfRecentlyMatchedCards = []
             // -- Make card invisible on the rest of cardButtons positions
             for positionIndex in allAvailableCardPosition {
                 cardButtons[positionIndex].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)

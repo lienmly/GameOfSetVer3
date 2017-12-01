@@ -11,9 +11,10 @@ import Foundation
 class SetGame {
     var cards = [Card]()
     var dealCards = [Card]()
-    var selectedCards = [Int:Card.State]() // [cardID:matchingState]
+    var selectedCards = [Int:Card.State]() // [cardID:Card.State]
     var currentDealCardNumber = 0
     var numberOfCardsCurrentlySelected = 0
+    var threePositionsOfRecentlyMatchedCards = [Int]()
     
     init() {
         // Add 81 cards in the deck
@@ -38,6 +39,25 @@ class SetGame {
     
     func selectCard(id cardUniqueIdentifier: Int) {
         if numberOfCardsCurrentlySelected < 3 {
+            // If there were 3 previously matched cards, remove those, and replace with new 3
+            var threeMatchedCardIDs = [Int]()
+            for (cardID, cardsState) in selectedCards {
+                if cardsState == .matched {
+                    threeMatchedCardIDs.append(cardID)
+                    selectedCards.removeValue(forKey: cardID)
+                }
+            }
+            for id in threeMatchedCardIDs {
+                if let index = dealCards.index(where: {$0.uniqueID == id}) {
+                    threePositionsOfRecentlyMatchedCards.append(dealCards[index].positionOnScreen)
+                    dealCards.remove(at: index)
+                }
+            }
+            if threeMatchedCardIDs.count == 3 {
+                print("3 cards just got matched!")
+                dealCard(total: 3)
+            }
+            
             // If there are 3 unmatched cards in the pile => remove them
             var numberOfUnmatchedCards = 0
             for (_, cardState) in selectedCards {
