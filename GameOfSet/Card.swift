@@ -27,6 +27,9 @@ struct Card {
     enum Color: Int { case one, two, three
         static var all = [Color.one, .two, .three]
     }
+    enum State: Int { case matched, notMatched, undecided
+        static var all = [State.matched, .notMatched, .undecided]
+    }
     
     init(number: Number, symbol: Symbol, shading: Shading, color: Color) {
         uniqueID = Card.getUniqueIdentifier()

@@ -19,19 +19,7 @@ class ViewController: UIViewController {
     @IBOutlet var cardButtons: [UIButton]!
     @IBAction func touchCard(_ sender: UIButton) {
         if let buttonIndex = cardButtons.index(of: sender), let cardID = cardPosition[buttonIndex] {
-            if setGame.numberOfCardsSelected < 3 {
-                if setGame.selectMatchCards[cardID] == nil {
-                    // Select
-                    setGame.selectCard(id: cardID)
-                    sender.layer.borderWidth = 5.0
-                    sender.layer.borderColor = UIColor.green.cgColor
-                } else {
-                    // Deselect
-                    setGame.deSelectCard(id: cardID)
-                    sender.layer.borderWidth = 0.0
-                }
-            }
-            
+            setGame.selectCard(id: cardID)
             updateViewFromModel()
         } else {
             print("(1)This button is not in cardButtons or (2)No card at this button")
@@ -65,6 +53,28 @@ class ViewController: UIViewController {
                 cardButtons[positionIndex].isEnabled = false
             }
             setGame.currentDealCardNumber = 0
+        }
+        // Select & Deselect cards
+        for cardButtonIndex in cardButtons.indices {
+            if let cardID = cardPosition[cardButtonIndex] {
+                cardButtons[cardButtonIndex].layer.borderWidth = 0.0
+                if setGame.selectedCards[cardID] != nil {
+                    if setGame.selectedCards[cardID] == .undecided { // deciding
+                        cardButtons[cardButtonIndex].layer.borderWidth = 5.0
+                        cardButtons[cardButtonIndex].layer.borderColor = UIColor.green.cgColor
+                    } else if setGame.selectedCards[cardID] == .matched { // already matched
+                        cardButtons[cardButtonIndex].layer.borderWidth = 0.0
+                        cardButtons[cardButtonIndex].backgroundColor = UIColor.yellow
+                        cardButtons[cardButtonIndex].isEnabled = false
+                    } else { // not matched
+                        cardButtons[cardButtonIndex].layer.borderWidth = 5.0
+                        cardButtons[cardButtonIndex].layer.borderColor = UIColor.red.cgColor
+                    }
+                } else { // Remove all special effects
+                    cardButtons[cardButtonIndex].layer.borderWidth = 0.0
+                    cardButtons[cardButtonIndex].backgroundColor = UIColor.white
+                }
+            }
         }
     }
     

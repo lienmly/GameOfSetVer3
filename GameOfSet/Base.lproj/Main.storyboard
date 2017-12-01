@@ -329,7 +329,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.17070032160000001" green="0.19050190889999999" blue="0.99953407049999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.99953407049999998" green="0.64555009299999999" blue="0.98442482949999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" red="0.45342489531538843" green="0.19102918508409256" blue="0.99953407049999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                 </subviews>
@@ -339,7 +339,7 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.17070032163440421" green="0.19050190894748481" blue="0.99953407049999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.99953407049999998" green="0.64555009301140054" blue="0.98442482951077015" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="plO-Lq-bnm" secondAttribute="bottom" constant="5" id="4XZ-wv-iyi"/>
                             <constraint firstItem="plO-Lq-bnm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="JV6-eu-ZTk"/>
