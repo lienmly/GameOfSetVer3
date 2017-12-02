@@ -319,11 +319,33 @@
                                     <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="P9R-Uy-BpU" userLabel="bottomButtonView">
                                         <rect key="frame" x="0.0" y="480" width="365" height="157"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTr-DM-zHo">
-                                                <rect key="frame" x="2" y="26" width="128" height="30"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 99" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jnc-dQ-neg">
+                                                <rect key="frame" x="10" y="111" width="151" height="36"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="0.93453868326043787" green="0.99953407049999998" blue="0.28892308604067529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Deal 3 More Cards"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <color key="textColor" red="0.57919406890000003" green="0.1280144453" blue="0.57268613580000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIx-WE-1Fg">
+                                                <rect key="frame" x="187" y="87" width="168" height="60"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.57919406890000003" green="0.1280144453" blue="0.57268613580000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <state key="normal" title="New Game">
+                                                    <color key="titleColor" red="0.99953407049999998" green="0.56945400499033261" blue="0.70421970099199949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="resetGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DSe-8Y-4fb"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTr-DM-zHo">
+                                                <rect key="frame" x="10" y="0.0" width="166" height="36"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.98196102687553155" green="0.49091164648763264" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="20"/>
+                                                <state key="normal" title="Deal 3 More Cards">
+                                                    <color key="titleColor" red="0.57919406890000003" green="0.1280144453" blue="0.57268613580000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="dealThreeMoreCard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qJA-Fq-MV9"/>
                                                 </connections>
@@ -335,6 +357,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.91147948969209236" green="0.93121830199981792" blue="0.99953407049999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="P9R-Uy-BpU" firstAttribute="top" secondItem="pAV-0U-ov1" secondAttribute="bottom" constant="8" id="6vP-1C-KcV"/>
                                     <constraint firstItem="P9R-Uy-BpU" firstAttribute="height" secondItem="pAV-0U-ov1" secondAttribute="height" multiplier="1:3" id="Q1M-76-s01"/>
                                 </constraints>
                             </stackView>
@@ -350,6 +373,7 @@
                     </view>
                     <connections>
                         <outlet property="dealThreeMoreCardButton" destination="NTr-DM-zHo" id="Ocf-wM-QD0"/>
+                        <outlet property="scoreLabel" destination="Jnc-dQ-neg" id="t8V-xK-JxJ"/>
                         <outletCollection property="cardButtons" destination="gtx-js-S2H" collectionClass="NSMutableArray" id="WSD-ZI-Q6n"/>
                         <outletCollection property="cardButtons" destination="JBa-h5-OWy" collectionClass="NSMutableArray" id="ntW-XL-St6"/>
                         <outletCollection property="cardButtons" destination="3Hb-fH-50H" collectionClass="NSMutableArray" id="Bth-e2-XVU"/>

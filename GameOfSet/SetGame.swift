@@ -15,18 +15,23 @@ class SetGame {
     var currentDealCardNumber = 0
     var numberOfCardsCurrentlySelected = 0
     var threePositionsOfRecentlyMatchedCards = [Int]()
+    var score = 0
     
     init() {
-        // Add 81 cards in the deck
-        for number in Card.Number.all {
-            for symbol in Card.Symbol.all {
-                for shading in Card.Shading.all {
-                    for color in Card.Color.all {
-                        cards.append(Card(number: number, symbol: symbol, shading: shading, color: color))
-                    }
-                }
-            }
-        }
+        createNewDeckOfCard()
+    }
+    
+    func refreshGame() {
+        // Reset all class variables
+        cards = []
+        dealCards = []
+        selectedCards = [:]
+        currentDealCardNumber = 0
+        numberOfCardsCurrentlySelected = 0
+        threePositionsOfRecentlyMatchedCards = []
+        score = 0
+        createNewDeckOfCard()
+        dealCard(total: 12)
     }
     
     func dealCard(total numberOfDealCard: Int) {
@@ -127,6 +132,19 @@ class SetGame {
             numberOfCardsCurrentlySelected = 0
         } else {
             print("There must be 3 unmatched cards to check the set rule.")
+        }
+    }
+    
+    private func createNewDeckOfCard () {
+        // Add 81 cards in the deck
+        for number in Card.Number.all {
+            for symbol in Card.Symbol.all {
+                for shading in Card.Shading.all {
+                    for color in Card.Color.all {
+                        cards.append(Card(number: number, symbol: symbol, shading: shading, color: color))
+                    }
+                }
+            }
         }
     }
 }

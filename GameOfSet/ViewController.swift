@@ -17,6 +17,15 @@ class ViewController: UIViewController {
     var cardPosition = [Int:Int]() // [cardButtonIndex:cardUniqueID]
     
     @IBOutlet var cardButtons: [UIButton]!
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBAction func resetGame(_ sender: UIButton) {
+        setGame.refreshGame()
+        // Refresh ViewController variables
+        allAvailableCardPosition = Array(0..<cardButtons.count)
+        cardPosition = [:]
+        // Update View
+        updateViewFromModel()
+    }
     @IBAction func touchCard(_ sender: UIButton) {
         if let buttonIndex = cardButtons.index(of: sender), let cardID = cardPosition[buttonIndex] {
             setGame.selectCard(id: cardID)
@@ -59,6 +68,7 @@ class ViewController: UIViewController {
             for positionIndex in allAvailableCardPosition {
                 cardButtons[positionIndex].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
                 cardButtons[positionIndex].setTitle("", for: .normal)
+                cardButtons[positionIndex].setAttributedTitle(NSAttributedString(string: ""), for: .normal)
                 cardButtons[positionIndex].isEnabled = false
             }
             setGame.currentDealCardNumber = 0
@@ -90,7 +100,7 @@ class ViewController: UIViewController {
                 }
             }
         }
-        // Disable "Deal 3 cards" 
+        // Disable "Deal 3 cards"
         if setGame.cards.count == 0 || allAvailableCardPosition.count == 0 {
             dealThreeMoreCardButton.isEnabled = false
         }
