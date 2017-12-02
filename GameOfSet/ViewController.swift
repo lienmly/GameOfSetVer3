@@ -68,6 +68,7 @@ class ViewController: UIViewController {
             // -- Make card invisible on the rest of cardButtons positions
             for positionIndex in allAvailableCardPosition {
                 cardButtons[positionIndex].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+                cardButtons[positionIndex].layer.borderWidth = 0.0
                 cardButtons[positionIndex].setTitle("", for: .normal)
                 cardButtons[positionIndex].setAttributedTitle(NSAttributedString(string: ""), for: .normal)
                 cardButtons[positionIndex].isEnabled = false
