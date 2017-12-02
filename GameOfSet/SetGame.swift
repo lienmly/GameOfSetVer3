@@ -86,6 +86,7 @@ class SetGame {
             } else { // Card in the currently selected pile => deselect card
                 selectedCards.removeValue(forKey: cardUniqueIdentifier)
                 numberOfCardsCurrentlySelected -= 1
+                score -= 1
             }
             // Check match
             if numberOfCardsCurrentlySelected == 3 {
@@ -128,6 +129,13 @@ class SetGame {
                     print("Not Matched! :(")
                     selectedCards[card.uniqueID] = .notMatched
                 }
+            }
+            
+            // Set score
+            if (isASet) {
+                score += 3
+            } else {
+                score -= 5
             }
             numberOfCardsCurrentlySelected = 0
         } else {

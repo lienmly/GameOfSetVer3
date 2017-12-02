@@ -35,6 +35,7 @@ class ViewController: UIViewController {
         }
     }
     @IBAction func dealThreeMoreCard(_ sender: UIButton) {
+        setGame.score -= 1
         setGame.dealCard(total: allAvailableCardPosition.count < 3 ? allAvailableCardPosition.count : 3)
         updateViewFromModel()
     }
@@ -104,6 +105,8 @@ class ViewController: UIViewController {
         if setGame.cards.count == 0 || allAvailableCardPosition.count == 0 {
             dealThreeMoreCardButton.isEnabled = false
         }
+        // Set score label
+        scoreLabel.text = "Score: \(setGame.score)"
     }
     
     private func drawCard(on cardToDrawOn: UIButton, dealCardIndex associatedDealCardIndex: Int) {
