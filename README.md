@@ -70,7 +70,10 @@
 * They all have the same shading or have three different shadings.
 * They all have the same color or have three different colors.
 ### Scoring: 
-* Found a match: +3
+* Found a match: 
+    * Found in 1 -> 4 seconds: +10
+    * Found in 5 -> 9 seconds: +6
+    * Found in >= 10 seconds: +3
 * Found a wrong match: -5
 * Deselect card: -1
 * Deal 3 more cards: -1
