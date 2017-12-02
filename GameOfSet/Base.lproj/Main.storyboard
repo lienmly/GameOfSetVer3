@@ -319,40 +319,67 @@
                                     <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="P9R-Uy-BpU" userLabel="bottomButtonView">
                                         <rect key="frame" x="0.0" y="480" width="365" height="157"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 99" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jnc-dQ-neg">
-                                                <rect key="frame" x="10" y="111" width="151" height="36"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                <color key="textColor" red="0.57919406890000003" green="0.1280144453" blue="0.57268613580000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIx-WE-1Fg">
-                                                <rect key="frame" x="187" y="87" width="168" height="60"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="0.57919406890000003" green="0.1280144453" blue="0.57268613580000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                <state key="normal" title="New Game">
-                                                    <color key="titleColor" red="0.99953407049999998" green="0.56945400499033261" blue="0.70421970099199949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="resetGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DSe-8Y-4fb"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTr-DM-zHo">
-                                                <rect key="frame" x="10" y="0.0" width="166" height="36"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="0.98196102687553155" green="0.49091164648763264" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="20"/>
-                                                <state key="normal" title="Deal 3 More Cards">
-                                                    <color key="titleColor" red="0.57919406890000003" green="0.1280144453" blue="0.57268613580000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="dealThreeMoreCard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qJA-Fq-MV9"/>
-                                                </connections>
-                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="kM4-hJ-bMX">
+                                                <rect key="frame" x="0.0" y="0.0" width="365" height="157"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Pw3-Qz-SRl">
+                                                        <rect key="frame" x="0.0" y="0.0" width="365" height="68.5"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTr-DM-zHo">
+                                                                <rect key="frame" x="0.0" y="0.0" width="365" height="68.5"/>
+                                                                <color key="backgroundColor" red="0.98196102687553155" green="0.49091164648763264" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="30"/>
+                                                                <state key="normal" title="Deal 3 More Cards">
+                                                                    <color key="titleColor" red="0.57919406890000003" green="0.1280144453" blue="0.57268613580000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="dealThreeMoreCard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qJA-Fq-MV9"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MMO-Cp-wHP">
+                                                        <rect key="frame" x="0.0" y="88.5" width="365" height="68.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jnc-dQ-neg">
+                                                                <rect key="frame" x="0.0" y="0.0" width="182.5" height="68.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                                <color key="textColor" red="0.57919406890000003" green="0.1280144453" blue="0.57268613580000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIx-WE-1Fg">
+                                                                <rect key="frame" x="182.5" y="0.0" width="182.5" height="68.5"/>
+                                                                <color key="backgroundColor" red="0.57919406890000003" green="0.1280144453" blue="0.57268613580000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                                <state key="normal" title="New Game">
+                                                                    <color key="titleColor" red="0.99953407049999998" green="0.56945400499033261" blue="0.70421970099199949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="resetGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DSe-8Y-4fb"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="BIx-WE-1Fg" firstAttribute="width" secondItem="Jnc-dQ-neg" secondAttribute="width" id="AvV-fZ-AYE"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="Pw3-Qz-SRl" firstAttribute="leading" secondItem="kM4-hJ-bMX" secondAttribute="leading" id="NhR-Am-gXW"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Pw3-Qz-SRl" secondAttribute="trailing" id="W5e-iz-H66"/>
+                                                    <constraint firstItem="MMO-Cp-wHP" firstAttribute="leading" secondItem="kM4-hJ-bMX" secondAttribute="leading" id="Zhp-au-pMG"/>
+                                                    <constraint firstAttribute="trailing" secondItem="MMO-Cp-wHP" secondAttribute="trailing" id="vOq-MA-lKq"/>
+                                                </constraints>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.99953407049999998" green="0.64555009299999999" blue="0.98442482949999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" red="0.45342489531538843" green="0.19102918508409256" blue="0.99953407049999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="kM4-hJ-bMX" secondAttribute="bottom" id="U1A-oG-qS3"/>
+                                            <constraint firstItem="kM4-hJ-bMX" firstAttribute="top" secondItem="P9R-Uy-BpU" secondAttribute="top" id="lOp-OP-Mia"/>
+                                            <constraint firstItem="kM4-hJ-bMX" firstAttribute="leading" secondItem="P9R-Uy-BpU" secondAttribute="leading" id="teb-Pq-CKo"/>
+                                            <constraint firstAttribute="trailing" secondItem="kM4-hJ-bMX" secondAttribute="trailing" id="upJ-Pg-JX7"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.91147948969209236" green="0.93121830199981792" blue="0.99953407049999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
