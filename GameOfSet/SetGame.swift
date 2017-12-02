@@ -16,6 +16,7 @@ class SetGame {
     var numberOfCardsCurrentlySelected = 0
     var threePositionsOfRecentlyMatchedCards = [Int]()
     var score = 0
+    var firstCardSelectedTimeStamp = Date()
     
     init() {
         createNewDeckOfCard()
@@ -83,6 +84,9 @@ class SetGame {
             if selectedCards[cardUniqueIdentifier] == nil { // Card is not in selectedCards => add to selected pile
                 selectedCards[cardUniqueIdentifier] = .undecided
                 numberOfCardsCurrentlySelected += 1
+                if numberOfCardsCurrentlySelected == 1 {
+                    firstCardSelectedTimeStamp = Date()
+                }
             } else { // Card in the currently selected pile => deselect card
                 selectedCards.removeValue(forKey: cardUniqueIdentifier)
                 numberOfCardsCurrentlySelected -= 1
@@ -133,7 +137,12 @@ class SetGame {
             
             // Set score
             if (isASet) {
-                score += 3
+                let timeToFindMatch = Date().timeIntervalSince(firstCardSelectedTimeStamp)
+                switch timeToFindMatch {
+                case 1..<5: score += 10
+                case 5..<10: score += 6
+                default: score += 3
+                }
             } else {
                 score -= 5
             }
