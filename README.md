@@ -69,6 +69,7 @@
 * They all have the same symbol or have three different symbols.
 * They all have the same shading or have three different shadings.
 * They all have the same color or have three different colors.
+* Please go [here!](https://en.wikipedia.org/wiki/Set_(game)) for more info on the Game of Set.
 ### Scoring: 
 * Found a match: 
     * Found in 1 -> 4 seconds: +10
