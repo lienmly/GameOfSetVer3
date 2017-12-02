@@ -29,6 +29,7 @@ class ViewController: UIViewController {
         setGame.dealCard(total: allAvailableCardPosition.count < 3 ? allAvailableCardPosition.count : 3)
         updateViewFromModel()
     }
+    @IBOutlet weak var dealThreeMoreCardButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,8 +82,17 @@ class ViewController: UIViewController {
                 } else { // Remove all special effects
                     cardButtons[cardButtonIndex].layer.borderWidth = 0.0
                     cardButtons[cardButtonIndex].backgroundColor = UIColor.white
+                    if cardButtons[cardButtonIndex].isEnabled == false {
+                        // If cards in deck == 0 => hide all matched cards
+                        cardButtons[cardButtonIndex].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+                        cardButtons[cardButtonIndex].setTitle("", for: .normal)
+                    }
                 }
             }
+        }
+        // Disable "Deal 3 cards" 
+        if setGame.cards.count == 0 || allAvailableCardPosition.count == 0 {
+            dealThreeMoreCardButton.isEnabled = false
         }
     }
     

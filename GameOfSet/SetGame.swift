@@ -35,6 +35,7 @@ class SetGame {
             let randomIndex = Int(arc4random_uniform(UInt32(cards.count)))
             dealCards.append(cards.remove(at: randomIndex))
         }
+        print("There are \(cards.count) cards left in the deck")
     }
     
     func selectCard(id cardUniqueIdentifier: Int) {
@@ -55,7 +56,7 @@ class SetGame {
             }
             if threeMatchedCardIDs.count == 3 {
                 print("3 cards just got matched!")
-                dealCard(total: 3)
+                dealCard(total: cards.count < 3 ? cards.count : 3)
             }
             
             // If there are 3 unmatched cards in the pile => remove them
