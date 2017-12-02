@@ -96,6 +96,7 @@ class ViewController: UIViewController {
                     if cardButtons[cardButtonIndex].isEnabled == false {
                         // If cards in deck == 0 => hide all matched cards
                         cardButtons[cardButtonIndex].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+                        cardButtons[cardButtonIndex].setAttributedTitle(NSAttributedString(string: ""), for: .normal)
                         cardButtons[cardButtonIndex].setTitle("", for: .normal)
                     }
                 }
