@@ -78,3 +78,4 @@
 * Found a wrong match: -5
 * Deselect card: -1
 * Deal 3 more cards: -1
+* If "Deal 3 more cards" button is clicked, when there are undetected existing sets on the screen: -4
