@@ -17,6 +17,7 @@ class SetGame {
     var threePositionsOfRecentlyMatchedCards = [Int]()
     var score = 0
     var firstCardSelectedTimeStamp = Date()
+    var existingSetsOnScreen = [(Card, Card, Card)]()
     
     init() {
         createNewDeckOfCard()
@@ -31,6 +32,7 @@ class SetGame {
         numberOfCardsCurrentlySelected = 0
         threePositionsOfRecentlyMatchedCards = []
         score = 0
+        existingSetsOnScreen = []
         createNewDeckOfCard()
         dealCard(total: 12)
     }
@@ -99,6 +101,31 @@ class SetGame {
         }
     }
     
+    func checkExistingSet() -> Bool {
+        // Penalize pressing Deal 3 More Cards if there is a Set available in the visible cards
+        for card1 in dealCards {
+            for card2 in dealCards {
+                for card3 in dealCards {
+                    if card1.uniqueID != card2.uniqueID && card2.uniqueID != card3.uniqueID && card1.uniqueID != card3.uniqueID {
+                        let card1State = selectedCards[card1.uniqueID]
+                        let card2State = selectedCards[card2.uniqueID]
+                        let card3State = selectedCards[card3.uniqueID]
+                        if !(card1State == .matched && card2State == .matched && card3State == .matched) {
+                            let isASet = isThreeCardASet(card0: card1, card1: card2, card2: card3)
+                            if isASet {
+                                existingSetsOnScreen.append((card1, card2, card3))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if existingSetsOnScreen.count > 0 {
+            return true
+        }
+        return false
+    }
+    
     private func checkMatch() {
         // Gather the 3 cards we want to check if they match
         var threeToBeMatchedCards = [Card]()
@@ -115,15 +142,7 @@ class SetGame {
         // Check match
         if threeToBeMatchedCards.count == 3 {
             print("Checking to see if the cards are matching.")
-            let isSameNumber = (threeToBeMatchedCards[0].number == threeToBeMatchedCards[1].number) && (threeToBeMatchedCards[1].number == threeToBeMatchedCards[2].number)
-            let isDiffNumber = (threeToBeMatchedCards[0].number != threeToBeMatchedCards[1].number) && (threeToBeMatchedCards[1].number != threeToBeMatchedCards[2].number) && (threeToBeMatchedCards[0].number != threeToBeMatchedCards[2].number)
-            let isSameSymbol = (threeToBeMatchedCards[0].symbol == threeToBeMatchedCards[1].symbol) && (threeToBeMatchedCards[1].symbol == threeToBeMatchedCards[2].symbol)
-            let isDiffSymbol = (threeToBeMatchedCards[0].symbol != threeToBeMatchedCards[1].symbol) && (threeToBeMatchedCards[1].symbol != threeToBeMatchedCards[2].symbol) && (threeToBeMatchedCards[0].symbol != threeToBeMatchedCards[2].symbol)
-            let isSameShading = (threeToBeMatchedCards[0].shading == threeToBeMatchedCards[1].shading) && (threeToBeMatchedCards[1].shading == threeToBeMatchedCards[2].shading)
-            let isDiffShading = (threeToBeMatchedCards[0].shading != threeToBeMatchedCards[1].shading) && (threeToBeMatchedCards[1].shading != threeToBeMatchedCards[2].shading) && (threeToBeMatchedCards[0].shading != threeToBeMatchedCards[2].shading)
-            let isSameColor = (threeToBeMatchedCards[0].color == threeToBeMatchedCards[1].color) && (threeToBeMatchedCards[1].color == threeToBeMatchedCards[2].color)
-            let isDiffColor = (threeToBeMatchedCards[0].color != threeToBeMatchedCards[1].color) && (threeToBeMatchedCards[1].color != threeToBeMatchedCards[2].color) && (threeToBeMatchedCards[0].color != threeToBeMatchedCards[2].color)
-            let isASet = (isSameNumber || isDiffNumber) && (isSameSymbol || isDiffSymbol) && (isSameShading || isDiffShading) && (isSameColor || isDiffColor)
+            let isASet = isThreeCardASet(card0: threeToBeMatchedCards[0], card1: threeToBeMatchedCards[1], card2: threeToBeMatchedCards[2])
             
             for card in threeToBeMatchedCards {
                 if (isASet) {
@@ -150,6 +169,19 @@ class SetGame {
         } else {
             print("There must be 3 unmatched cards to check the set rule.")
         }
+    }
+    
+    private func isThreeCardASet(card0: Card, card1: Card, card2: Card) -> Bool {
+        let isSameNumber = (card0.number == card1.number) && (card1.number == card2.number)
+        let isDiffNumber = (card0.number != card1.number) && (card1.number != card2.number) && (card0.number != card2.number)
+        let isSameSymbol = (card0.symbol == card1.symbol) && (card1.symbol == card2.symbol)
+        let isDiffSymbol = (card0.symbol != card1.symbol) && (card1.symbol != card2.symbol) && (card0.symbol != card2.symbol)
+        let isSameShading = (card0.shading == card1.shading) && (card1.shading == card2.shading)
+        let isDiffShading = (card0.shading != card1.shading) && (card1.shading != card2.shading) && (card0.shading != card2.shading)
+        let isSameColor = (card0.color == card1.color) && (card1.color == card2.color)
+        let isDiffColor = (card0.color != card1.color) && (card1.color != card2.color) && (card0.color != card2.color)
+        let isASet = (isSameNumber || isDiffNumber) && (isSameSymbol || isDiffSymbol) && (isSameShading || isDiffShading) && (isSameColor || isDiffColor)
+        return isASet
     }
     
     private func createNewDeckOfCard () {

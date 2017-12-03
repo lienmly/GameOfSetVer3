@@ -36,6 +36,9 @@ class ViewController: UIViewController {
     }
     @IBAction func dealThreeMoreCard(_ sender: UIButton) {
         setGame.score -= 1
+        if setGame.checkExistingSet() {
+            setGame.score -= 4
+        }
         setGame.dealCard(total: allAvailableCardPosition.count < 3 ? allAvailableCardPosition.count : 3)
         updateViewFromModel()
     }
