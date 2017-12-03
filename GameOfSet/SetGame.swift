@@ -110,7 +110,7 @@ class SetGame {
                         let card1State = selectedCards[card1.uniqueID]
                         let card2State = selectedCards[card2.uniqueID]
                         let card3State = selectedCards[card3.uniqueID]
-                        if !(card1State == .matched && card2State == .matched && card3State == .matched) {
+                        if !(card1State == .matched || card2State == .matched || card3State == .matched) {
                             let isASet = isThreeCardASet(card0: card1, card1: card2, card2: card3)
                             if isASet {
                                 existingSetsOnScreen.append((card1, card2, card3))

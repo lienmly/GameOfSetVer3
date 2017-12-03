@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     @IBOutlet var cardButtons: [UIButton]!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBAction func cheat(_ sender: UIButton) {
+        setGame.score -= 2
         if setGame.checkExistingSet() {
             let cardSet = setGame.existingSetsOnScreen[0]
             UIView.animate(withDuration: 1.0, animations: {
@@ -101,6 +102,7 @@ class ViewController: UIViewController {
         for cardButtonIndex in cardButtons.indices {
             if let cardID = cardPosition[cardButtonIndex] {
                 cardButtons[cardButtonIndex].layer.borderWidth = 0.0
+                cardButtons[cardButtonIndex].backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
                 if setGame.selectedCards[cardID] != nil {
                     if setGame.selectedCards[cardID] == .undecided { // deciding
                         cardButtons[cardButtonIndex].layer.borderWidth = 5.0
