@@ -322,13 +322,13 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="kM4-hJ-bMX">
                                                 <rect key="frame" x="0.0" y="0.0" width="365" height="157"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Pw3-Qz-SRl">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pw3-Qz-SRl">
                                                         <rect key="frame" x="0.0" y="0.0" width="365" height="68.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTr-DM-zHo">
-                                                                <rect key="frame" x="0.0" y="0.0" width="365" height="68.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="243.5" height="68.5"/>
                                                                 <color key="backgroundColor" red="0.98196102687553155" green="0.49091164648763264" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="30"/>
+                                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="25"/>
                                                                 <state key="normal" title="Deal 3 More Cards">
                                                                     <color key="titleColor" red="0.57919406890000003" green="0.1280144453" blue="0.57268613580000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
@@ -336,7 +336,20 @@
                                                                     <action selector="dealThreeMoreCard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qJA-Fq-MV9"/>
                                                                 </connections>
                                                             </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ybi-DY-p7G">
+                                                                <rect key="frame" x="243.5" y="0.0" width="121.5" height="68.5"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="25"/>
+                                                                <state key="normal" title="Cheat!">
+                                                                    <color key="titleColor" red="0.45085787770000002" green="0.98829740290000001" blue="0.83763033149999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="cheat:" destination="BYZ-38-t0r" eventType="touchUpInside" id="igJ-8G-g0x"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="Ybi-DY-p7G" firstAttribute="width" secondItem="NTr-DM-zHo" secondAttribute="width" multiplier="1:2" id="VkD-fm-Lia"/>
+                                                        </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MMO-Cp-wHP">
                                                         <rect key="frame" x="0.0" y="88.5" width="365" height="68.5"/>

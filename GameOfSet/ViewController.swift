@@ -18,6 +18,25 @@ class ViewController: UIViewController {
     
     @IBOutlet var cardButtons: [UIButton]!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBAction func cheat(_ sender: UIButton) {
+        if setGame.checkExistingSet() {
+            let cardSet = setGame.existingSetsOnScreen[0]
+            UIView.animate(withDuration: 1.0, animations: {
+                for buttonIndex in self.cardButtons.indices {
+                    if buttonIndex == cardSet.0.positionOnScreen {
+                        self.cardButtons[buttonIndex].backgroundColor = #colorLiteral(red: 0.6397396763, green: 0.9946970633, blue: 1, alpha: 1)
+                    }
+                    if buttonIndex == cardSet.1.positionOnScreen {
+                        self.cardButtons[buttonIndex].backgroundColor = #colorLiteral(red: 0.6397396763, green: 0.9946970633, blue: 1, alpha: 1)
+                    }
+                    if buttonIndex == cardSet.2.positionOnScreen {
+                        self.cardButtons[buttonIndex].backgroundColor = #colorLiteral(red: 0.6397396763, green: 0.9946970633, blue: 1, alpha: 1)
+                    }
+                }
+            }, completion: nil)
+        }
+        setGame.existingSetsOnScreen = []
+    }
     @IBAction func resetGame(_ sender: UIButton) {
         setGame.refreshGame()
         // Refresh ViewController variables
