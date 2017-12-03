@@ -60,6 +60,17 @@
                 </ul>
             </td>
         </tr>
+        <tr>
+            <td>
+                <img src="https://github.com/lienmly/GameOfSet/blob/master/images/cheat.png" height="350" >
+            </td>
+            <td>
+                <ul>
+                    <li>Matched cards: yellow.</li>
+                    <li>Cheated cards: blue.</li>
+                </ul>
+            </td>
+        </tr>
     </tbody>
 </table>
 
@@ -79,3 +90,4 @@
 * Deselect card: -1
 * Deal 3 more cards: -1
 * If "Deal 3 more cards" button is clicked, when there are undetected existing sets on the screen: -4
+* Cheat: -3
