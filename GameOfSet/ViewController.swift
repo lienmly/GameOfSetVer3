@@ -59,7 +59,7 @@ class ViewController: UIViewController {
         if setGame.checkExistingSet() {
             setGame.score -= 4
         }
-        setGame.dealCard(total: allAvailableCardPosition.count < 3 ? allAvailableCardPosition.count : 3)
+        setGame.dealCard(total: setGame.cards.count < 3 ? setGame.cards.count : 3)
         updateViewFromModel()
     }
     @IBOutlet weak var dealThreeMoreCardButton: UIButton!
@@ -73,62 +73,66 @@ class ViewController: UIViewController {
     }
     
     private func updateViewFromModel() {
+        
         // Display deal card & hide the rest
-        if setGame.currentDealCardNumber > 0 {
-            // -- Make card visible on selected random positions
-            for dealCardIndex in 0..<setGame.currentDealCardNumber {
-                var position = 0
-                if setGame.threePositionsOfRecentlyMatchedCards.count > 0 {
-                    position = setGame.threePositionsOfRecentlyMatchedCards.remove(at: 0)
-                } else {
-                    let randomCardButtonIndex = allAvailableCardPosition.remove(at: Int(arc4random_uniform(UInt32(allAvailableCardPosition.count))))
-                    position = randomCardButtonIndex
-                }
-                setGame.dealCards[setGame.dealCards.count - dealCardIndex - 1].positionOnScreen = position
-                drawCard(on: cardButtons[position], dealCardIndex: setGame.dealCards.count - dealCardIndex - 1)
-            }
-            setGame.threePositionsOfRecentlyMatchedCards = []
-            // -- Make card invisible on the rest of cardButtons positions
-            for positionIndex in allAvailableCardPosition {
-                cardButtons[positionIndex].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
-                cardButtons[positionIndex].layer.borderWidth = 0.0
-                cardButtons[positionIndex].setTitle("", for: .normal)
-                cardButtons[positionIndex].setAttributedTitle(NSAttributedString(string: ""), for: .normal)
-                cardButtons[positionIndex].isEnabled = false
-            }
-            setGame.currentDealCardNumber = 0
-        }
+//        if setGame.currentDealCardNumber > 0 {
+//            // -- Make card visible on selected random positions
+//            for dealCardIndex in 0..<setGame.currentDealCardNumber {
+//                var position = 0
+//                if setGame.threePositionsOfRecentlyMatchedCards.count > 0 {
+//                    position = setGame.threePositionsOfRecentlyMatchedCards.remove(at: 0)
+//                } else {
+//                    let randomCardButtonIndex = allAvailableCardPosition.remove(at: Int(arc4random_uniform(UInt32(allAvailableCardPosition.count))))
+//                    position = randomCardButtonIndex
+//                }
+//                setGame.dealCards[setGame.dealCards.count - dealCardIndex - 1].positionOnScreen = position
+//                drawCard(on: cardButtons[position], dealCardIndex: setGame.dealCards.count - dealCardIndex - 1)
+//            }
+//            setGame.threePositionsOfRecentlyMatchedCards = []
+//            // -- Make card invisible on the rest of cardButtons positions
+//            for positionIndex in allAvailableCardPosition {
+//                cardButtons[positionIndex].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+//                cardButtons[positionIndex].layer.borderWidth = 0.0
+//                cardButtons[positionIndex].setTitle("", for: .normal)
+//                cardButtons[positionIndex].setAttributedTitle(NSAttributedString(string: ""), for: .normal)
+//                cardButtons[positionIndex].isEnabled = false
+//            }
+//            setGame.currentDealCardNumber = 0
+//        }
+        
+        
+        
         // Select & Deselect cards
-        for cardButtonIndex in cardButtons.indices {
-            if let cardID = cardPosition[cardButtonIndex] {
-                cardButtons[cardButtonIndex].layer.borderWidth = 0.0
-                cardButtons[cardButtonIndex].backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-                if setGame.selectedCards[cardID] != nil {
-                    if setGame.selectedCards[cardID] == .undecided { // deciding
-                        cardButtons[cardButtonIndex].layer.borderWidth = 5.0
-                        cardButtons[cardButtonIndex].layer.borderColor = UIColor.green.cgColor
-                    } else if setGame.selectedCards[cardID] == .matched { // already matched
-                        cardButtons[cardButtonIndex].layer.borderWidth = 0.0
-                        cardButtons[cardButtonIndex].backgroundColor = UIColor.yellow
-                        cardButtons[cardButtonIndex].isEnabled = false
-                    } else { // not matched
-                        cardButtons[cardButtonIndex].layer.borderWidth = 5.0
-                        cardButtons[cardButtonIndex].layer.borderColor = UIColor.red.cgColor
-                    }
-                } else { // Remove all special effects
-                    cardButtons[cardButtonIndex].layer.borderWidth = 0.0
-                    cardButtons[cardButtonIndex].backgroundColor = UIColor.white
-                    if cardButtons[cardButtonIndex].isEnabled == false {
-                        // If cards in deck == 0 => hide all matched cards
-                        cardButtons[cardButtonIndex].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
-                        cardButtons[cardButtonIndex].setAttributedTitle(NSAttributedString(string: ""), for: .normal)
-                        cardButtons[cardButtonIndex].setTitle("", for: .normal)
-                    }
-                }
-            }
-        }
+//        for cardButtonIndex in cardButtons.indices {
+//            if let cardID = cardPosition[cardButtonIndex] {
+//                cardButtons[cardButtonIndex].layer.borderWidth = 0.0
+//                cardButtons[cardButtonIndex].backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+//                if setGame.selectedCards[cardID] != nil {
+//                    if setGame.selectedCards[cardID] == .undecided { // deciding
+//                        cardButtons[cardButtonIndex].layer.borderWidth = 5.0
+//                        cardButtons[cardButtonIndex].layer.borderColor = UIColor.green.cgColor
+//                    } else if setGame.selectedCards[cardID] == .matched { // already matched
+//                        cardButtons[cardButtonIndex].layer.borderWidth = 0.0
+//                        cardButtons[cardButtonIndex].backgroundColor = UIColor.yellow
+//                        cardButtons[cardButtonIndex].isEnabled = false
+//                    } else { // not matched
+//                        cardButtons[cardButtonIndex].layer.borderWidth = 5.0
+//                        cardButtons[cardButtonIndex].layer.borderColor = UIColor.red.cgColor
+//                    }
+//                } else { // Remove all special effects
+//                    cardButtons[cardButtonIndex].layer.borderWidth = 0.0
+//                    cardButtons[cardButtonIndex].backgroundColor = UIColor.white
+//                    if cardButtons[cardButtonIndex].isEnabled == false {
+//                        // If cards in deck == 0 => hide all matched cards
+//                        cardButtons[cardButtonIndex].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+//                        cardButtons[cardButtonIndex].setAttributedTitle(NSAttributedString(string: ""), for: .normal)
+//                        cardButtons[cardButtonIndex].setTitle("", for: .normal)
+//                    }
+//                }
+//            }
+//        }
         // Disable "Deal 3 cards"
-        if setGame.cards.count == 0 || allAvailableCardPosition.count == 0 {
+        if setGame.cards.count == 0 {
             dealThreeMoreCardButton.isEnabled = false
         }
         // Set score label
