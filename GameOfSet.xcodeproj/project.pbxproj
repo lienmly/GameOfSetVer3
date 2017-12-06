@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1E1383EB1FD7445A00655E1E /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1383EA1FD7445A00655E1E /* Grid.swift */; };
+		1E1383ED1FD74B0500655E1E /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1383EC1FD74B0500655E1E /* CardView.swift */; };
+		1E1383EF1FD8682F00655E1E /* AllCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1383EE1FD8682F00655E1E /* AllCardsView.swift */; };
 		1E9AC2811FCF1DE700ADD386 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AC2801FCF1DE700ADD386 /* AppDelegate.swift */; };
 		1E9AC2831FCF1DE700ADD386 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AC2821FCF1DE700ADD386 /* ViewController.swift */; };
 		1E9AC2861FCF1DE700ADD386 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E9AC2841FCF1DE700ADD386 /* Main.storyboard */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		1E1383EA1FD7445A00655E1E /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		1E1383EC1FD74B0500655E1E /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		1E1383EE1FD8682F00655E1E /* AllCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCardsView.swift; sourceTree = "<group>"; };
 		1E9AC27D1FCF1DE700ADD386 /* GameOfSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameOfSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E9AC2801FCF1DE700ADD386 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E9AC2821FCF1DE700ADD386 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +66,8 @@
 			children = (
 				1E9AC2921FCF2F5E00ADD386 /* Supporting Files */,
 				1E9AC2821FCF1DE700ADD386 /* ViewController.swift */,
+				1E1383EC1FD74B0500655E1E /* CardView.swift */,
+				1E1383EE1FD8682F00655E1E /* AllCardsView.swift */,
 				1E9AC2931FCF2FC200ADD386 /* Card.swift */,
 				1E9AC2951FCF30C100ADD386 /* SetGame.swift */,
 				1E1383EA1FD7445A00655E1E /* Grid.swift */,
@@ -157,7 +163,9 @@
 				1E9AC2941FCF2FC200ADD386 /* Card.swift in Sources */,
 				1E9AC2961FCF30C100ADD386 /* SetGame.swift in Sources */,
 				1E1383EB1FD7445A00655E1E /* Grid.swift in Sources */,
+				1E1383ED1FD74B0500655E1E /* CardView.swift in Sources */,
 				1E9AC2811FCF1DE700ADD386 /* AppDelegate.swift in Sources */,
+				1E1383EF1FD8682F00655E1E /* AllCardsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
