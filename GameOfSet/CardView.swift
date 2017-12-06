@@ -15,10 +15,19 @@ class CardView: UIView {
     var color: Card.Color = .one { didSet { setNeedsDisplay(); setNeedsLayout() } }
     
     override func draw(_ rect: CGRect) {
+        drawBackground()
+        drawContent()
+    }
+    
+    private func drawBackground() {
         let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: 16.0)
         roundedRect.addClip()
         UIColor.white.setFill()
         roundedRect.fill()
+    }
+    
+    private func drawContent() {
+        
     }
 }
 
