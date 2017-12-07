@@ -76,6 +76,15 @@ class ViewController: UIViewController {
     private func updateViewFromModel() {
         // Display deal cards
         allCardsView.cardCount = setGame.dealCards.count
+        for cardIndex in 0..<setGame.dealCards.count {
+            let number = setGame.dealCards[cardIndex].number
+            let symbol = setGame.dealCards[cardIndex].symbol
+            let shading = setGame.dealCards[cardIndex].shading
+            let color = setGame.dealCards[cardIndex].color
+            let id = setGame.dealCards[cardIndex].uniqueID
+            let state = setGame.dealCards[cardIndex].state
+            allCardsView.cardViewsProperties.append((number, symbol, shading, color, state, id))
+        }
 //        if setGame.currentDealCardNumber > 0 {
 //            // -- Make card visible on selected random positions
 //            for dealCardIndex in 0..<setGame.currentDealCardNumber {

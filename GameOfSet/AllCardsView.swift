@@ -10,19 +10,24 @@ import UIKit
 
 class AllCardsView: UIView {
     var cardCount: Int = 27 { didSet {  setNeedsLayout() } }
-    private lazy var testCardView = createCard()
+    var cardViewsProperties = [(Card.Number, Card.Symbol, Card.Shading, Card.Color, Card.State, Int)]() // (_,_,_,_,_,uniqueID)
     private lazy var grid = Grid(layout: .aspectRatio(CGFloat(Constants.cardWidthToHeight)), frame: CGRect(origin: CGPoint(x: 0,y: 0), size: CGSize(width: CGFloat(bounds.size.width), height: CGFloat(bounds.size.height))))
     
-    private func createCard() -> CardView {
+    private func createCard(index cardIndex: Int) -> CardView {
         let cardView = CardView()
+        cardView.number = cardViewsProperties[cardIndex].0
+        cardView.symbol = cardViewsProperties[cardIndex].1
+        cardView.shading = cardViewsProperties[cardIndex].2
+        cardView.color = cardViewsProperties[cardIndex].3
+        cardView.state = cardViewsProperties[cardIndex].4
+        cardView.uniqueID = cardViewsProperties[cardIndex].5
         addSubview(cardView)
         return cardView
     }
     
     private func configureCardView(_ view: UIView, _ frame: CGRect) {
-        let deltaX = frame.width*Constants.cardEdgeWidthToCellFrameSize
-        let deltaY = frame.height*Constants.cardEdgeWidthToCellFrameSize
-        let insetFrame = frame.insetBy(dx: deltaX, dy: deltaY)
+        let delta = frame.width*Constants.cardEdgeWidthToCellFrameSize
+        let insetFrame = frame.insetBy(dx: delta, dy: delta)
         view.frame.size = CGSize.init(width: insetFrame.width, height: insetFrame.height)
         view.frame.origin = insetFrame.origin
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
@@ -41,7 +46,7 @@ class AllCardsView: UIView {
         
         // Add subviews
         for cellIndex in 0..<grid.cellCount {
-            let card = createCard()
+            let card = createCard(index: cellIndex)
             configureCardView(card, grid[cellIndex]!)
             card.frame.origin = grid[cellIndex]!.origin
         }

@@ -14,6 +14,7 @@ struct Card {
     let shading: Shading
     let color: Color
     let uniqueID: Int
+    let state: State
     var positionOnScreen: Int
     
     enum Number: Int { case one, two, three
@@ -28,16 +29,17 @@ struct Card {
     enum Color: Int { case one, two, three
         static var all = [Color.one, .two, .three]
     }
-    enum State: Int { case matched, notMatched, undecided
-        static var all = [State.matched, .notMatched, .undecided]
+    enum State: Int { case matched, notMatched, undecided, unselected
+        static var all = [State.matched, .notMatched, .undecided, .unselected]
     }
     
-    init(number: Number, symbol: Symbol, shading: Shading, color: Color) {
+    init(number: Number, symbol: Symbol, shading: Shading, color: Color, state: State) {
         uniqueID = Card.getUniqueIdentifier()
         self.number = number
         self.symbol = symbol
         self.shading = shading
         self.color = color
+        self.state = state
         self.positionOnScreen = 0
     }
     
