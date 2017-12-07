@@ -73,8 +73,8 @@ class ViewController: UIViewController {
     }
     
     private func updateViewFromModel() {
+        // Display deal cards
         
-        // Display deal card & hide the rest
 //        if setGame.currentDealCardNumber > 0 {
 //            // -- Make card visible on selected random positions
 //            for dealCardIndex in 0..<setGame.currentDealCardNumber {

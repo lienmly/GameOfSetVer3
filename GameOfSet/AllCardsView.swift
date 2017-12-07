@@ -8,9 +8,11 @@
 
 import UIKit
 
+@IBDesignable
 class AllCardsView: UIView {
     private var cardViews = [CardView]()
     private lazy var testCardView = createCard()
+    private lazy var grid = Grid(layout: .aspectRatio(CGFloat(Constants.cardWidthToHeight)), frame: CGRect(origin: CGPoint(x: 0,y: 0), size: CGSize(width: CGFloat(bounds.size.width), height: CGFloat(bounds.size.height))))
     
     private func createCard() -> CardView {
         let cardView = CardView()
@@ -19,14 +21,26 @@ class AllCardsView: UIView {
     }
     
     private func configureCardView(_ view: UIView) {
-        view.frame.size = CGSize.init(width: 100.0, height: 200.0)
+        view.frame.size = CGSize.init(width: grid.cellSize.width, height: grid.cellSize.height)
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        grid.cellCount = 81
         
-        configureCardView(testCardView)
-        testCardView.frame.origin = bounds.origin
+        for cellIndex in 0..<grid.cellCount {
+            let card = createCard()
+            cardViews.append(card)
+            configureCardView(card)
+            card.frame.origin = grid[cellIndex]!.origin
+        }
+        
+    }
+}
+
+extension AllCardsView {
+    private struct Constants {
+        static let cardWidthToHeight: CGFloat = 0.7
     }
 }

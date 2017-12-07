@@ -27,7 +27,14 @@ class CardView: UIView {
     }
     
     private func drawContent() {
-        
+        drawSymbol()
+    }
+    
+    private func drawSymbol() {
+        let oval = UIBezierPath(roundedRect: bounds.offsetBy(dx: bounds.maxX/2, dy: bounds.maxY/2), cornerRadius: 16.0)
+        oval.addClip()
+        UIColor.green.setFill()
+        oval.fill()
     }
 }
 
