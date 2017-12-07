@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     var cardPosition = [Int:Int]() // [cardButtonIndex:cardUniqueID]
     
     @IBOutlet var cardButtons: [UIButton]!
+    @IBOutlet weak var allCardsView: AllCardsView!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBAction func cheat(_ sender: UIButton) {
         setGame.score -= 2
@@ -74,7 +75,7 @@ class ViewController: UIViewController {
     
     private func updateViewFromModel() {
         // Display deal cards
-        
+        allCardsView.cardCount = setGame.dealCards.count
 //        if setGame.currentDealCardNumber > 0 {
 //            // -- Make card visible on selected random positions
 //            for dealCardIndex in 0..<setGame.currentDealCardNumber {

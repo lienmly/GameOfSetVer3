@@ -20,7 +20,7 @@ class CardView: UIView {
     }
     
     private func drawBackground() {
-        let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: 16.0)
+        let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: 8.0)
         roundedRect.addClip()
         UIColor.white.setFill()
         roundedRect.fill()
@@ -31,7 +31,7 @@ class CardView: UIView {
     }
     
     private func drawSymbol() {
-        let oval = UIBezierPath(roundedRect: bounds.offsetBy(dx: bounds.maxX/2, dy: bounds.maxY/2), cornerRadius: 16.0)
+        let oval = UIBezierPath(roundedRect: bounds.offsetBy(dx: bounds.maxX/2, dy: bounds.maxY/2), cornerRadius: 8.0)
         oval.addClip()
         UIColor.green.setFill()
         oval.fill()
