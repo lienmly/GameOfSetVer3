@@ -94,10 +94,18 @@ class SetGame {
                 numberOfCardsCurrentlySelected -= 1
                 score -= 1
             }
+            
             // Check match
             if numberOfCardsCurrentlySelected == 3 {
                 checkMatch()
             }
+        }
+    }
+    
+    func selectCardVer2(id cardUniqueIdentifier: Int) {
+        // Select & Deselect
+        if let cardIndex = dealCards.index(where: {$0.uniqueID == cardUniqueIdentifier}) {
+            if dealCards[cardIndex].state == .undecided { dealCards[cardIndex].state = .unselected } else if dealCards[cardIndex].state == .unselected { dealCards[cardIndex].state = .undecided }
         }
     }
     

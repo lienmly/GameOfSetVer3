@@ -9,12 +9,8 @@
 import UIKit
 
 class CardView: UIView {
-    var number: Card.Number = .one { didSet { setNeedsDisplay(); setNeedsLayout() } }
-    var symbol: Card.Symbol = .one { didSet { setNeedsDisplay(); setNeedsLayout() } }
-    var shading: Card.Shading = .one { didSet { setNeedsDisplay(); setNeedsLayout() } }
-    var color: Card.Color = .one { didSet { setNeedsDisplay(); setNeedsLayout() } }
-    var state: Card.State = .unselected { didSet { setNeedsDisplay(); setNeedsLayout() } }
-    var uniqueID: Int = 0 { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    var card = Card() { didSet {  setNeedsLayout(); setNeedsDisplay() } }
+    var setGame = SetGame() { didSet {  setNeedsLayout(); setNeedsDisplay() } }
     let colorMatching = [Card.Color.one: #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1), .two: #colorLiteral(red: 0.5680870746, green: 0.268135684, blue: 0.7625713832, alpha: 1), .three: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)]
     
     override func draw(_ rect: CGRect) {
@@ -26,8 +22,8 @@ class CardView: UIView {
     @objc private func selected(byHandlingGestureRecognizedBy recognizer: UITapGestureRecognizer) {
         switch recognizer.state {
         case .ended:
-            if state == .undecided { state = .unselected } else if state == .unselected { state = .undecided }
-            print("card number \(uniqueID) was tapped")
+            setGame.selectCardVer2(id: card.uniqueID)
+            card = setGame.dealCards[setGame.dealCards.index(where: {$0.uniqueID == card.uniqueID})!]
         default: break
         }
     }
@@ -41,7 +37,7 @@ class CardView: UIView {
         let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         roundedRect.addClip()
         
-        switch state {
+        switch card.state {
         case .unselected:
             UIColor.white.setFill()
             roundedRect.fill()
@@ -49,7 +45,7 @@ class CardView: UIView {
             UIColor.white.setFill()
             roundedRect.fill()
             UIColor.green.setStroke()
-            roundedRect.lineWidth = 5.0
+            roundedRect.lineWidth = bounds.height*Constants.strokeWidthToSymbolFrameHeight
             roundedRect.stroke()
         default: break
         }
@@ -67,17 +63,17 @@ class CardView: UIView {
         var symbolFrame = singleSymbolFrame
         let symbolGap = symbolFrame.height*Constants.symbolGapHeightToSymbolFrameHeight
         
-        switch number {
+        switch card.number {
         case .two: symbolFrame = symbolFrame.offsetBy(dx: 0, dy: -symbolFrame.height*Constants.twoSymbolOffsetToSymbolFrameHeight)
         case .three: symbolFrame = symbolFrame.offsetBy(dx: 0, dy: -symbolFrame.height-symbolGap)
         default: break
         }
         
-        for _ in 0...number.rawValue {
-            switch symbol {
+        for _ in 0...card.number.rawValue {
+            switch card.symbol {
             case .one:
                 path = UIBezierPath(roundedRect: symbolFrame, cornerRadius: symbolFrame.height*Constants.symbolCornerRadiusToBoundsHeight)
-                drawSymbolShading(for: path, with: colorMatching[color]!, inside: symbolFrame)
+                drawSymbolShading(for: path, with: colorMatching[card.color]!, inside: symbolFrame)
             case .two:
                 path.move(to: CGPoint(x: symbolFrame.minX, y: symbolFrame.maxY))
                 path.addCurve(to: CGPoint(x: symbolFrame.maxX, y: symbolFrame.minY),
@@ -86,21 +82,21 @@ class CardView: UIView {
                 path.addCurve(to: CGPoint(x: symbolFrame.minX, y: symbolFrame.maxY),
                               controlPoint1: CGPoint(x: symbolFrame.maxX , y: symbolFrame.maxY + symbolFrame.height*Constants.controlPoint2HeightToSymbolFrameHeight),
                               controlPoint2: CGPoint(x: symbolFrame.minX + Constants.controlPoint2_xToFrameWidth*symbolFrame.width, y: symbolFrame.minY))
-                drawSymbolShading(for: path, with: colorMatching[color]!, inside: symbolFrame)
+                drawSymbolShading(for: path, with: colorMatching[card.color]!, inside: symbolFrame)
             case .three:
                 path.move(to: CGPoint(x: symbolFrame.minX, y: symbolFrame.maxY - symbolFrame.height/2))
                 path.addLine(to: CGPoint(x: symbolFrame.maxX - symbolFrame.width/2, y: symbolFrame.minY))
                 path.addLine(to: CGPoint(x: symbolFrame.maxX, y: symbolFrame.minY + symbolFrame.height/2))
                 path.addLine(to: CGPoint(x: symbolFrame.minX + symbolFrame.width/2, y: symbolFrame.maxY))
                 path.close()
-                drawSymbolShading(for: path, with: colorMatching[color]!, inside: symbolFrame)
+                drawSymbolShading(for: path, with: colorMatching[card.color]!, inside: symbolFrame)
             }
             symbolFrame = symbolFrame.offsetBy(dx: 0, dy: symbolGap + symbolFrame.height)
         }
     }
     
     private func drawSymbolShading(for path: UIBezierPath, with color: UIColor, inside frame: CGRect) {
-        switch shading {
+        switch card.shading {
         case .one:
             color.setFill()
             path.fill()

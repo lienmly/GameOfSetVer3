@@ -9,18 +9,13 @@
 import UIKit
 
 class AllCardsView: UIView {
-    var cardCount: Int = 0 { didSet {  setNeedsLayout() } }
-    var cardViewsProperties = [(Card.Number, Card.Symbol, Card.Shading, Card.Color, Card.State, Int)]() // (_,_,_,_,_,uniqueID)
+    var setGame = SetGame() { didSet {  setNeedsLayout(); setNeedsDisplay() } }
     private lazy var grid = Grid(layout: .aspectRatio(CGFloat(Constants.cardWidthToHeight)), frame: CGRect(origin: CGPoint(x: 0,y: 0), size: CGSize(width: CGFloat(bounds.size.width), height: CGFloat(bounds.size.height))))
     
     private func createCard(index cardIndex: Int) -> CardView {
         let cardView = CardView()
-        cardView.number = cardViewsProperties[cardIndex].0
-        cardView.symbol = cardViewsProperties[cardIndex].1
-        cardView.shading = cardViewsProperties[cardIndex].2
-        cardView.color = cardViewsProperties[cardIndex].3
-        cardView.state = cardViewsProperties[cardIndex].4
-        cardView.uniqueID = cardViewsProperties[cardIndex].5
+        cardView.card = setGame.dealCards[cardIndex]
+        cardView.setGame = setGame
         
         addSubview(cardView)
         return cardView
@@ -34,13 +29,9 @@ class AllCardsView: UIView {
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
     }
     
-    func set(cardCount numberOfCard: Int) {
-        cardCount = numberOfCard
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
-        grid.cellCount = self.cardCount
+        grid.cellCount = self.setGame.dealCards.count
         
         // Empty all subviews
         self.subviews.forEach({ $0.removeFromSuperview() })

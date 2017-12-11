@@ -14,7 +14,7 @@ struct Card {
     let shading: Shading
     let color: Color
     let uniqueID: Int
-    let state: State
+    var state: State
     var positionOnScreen: Int
     
     enum Number: Int { case one, two, three
@@ -40,6 +40,16 @@ struct Card {
         self.shading = shading
         self.color = color
         self.state = state
+        self.positionOnScreen = 0
+    }
+    
+    init() {
+        uniqueID = 0
+        self.number = .one
+        self.symbol = .one
+        self.shading = .one
+        self.color = .one
+        self.state = .unselected
         self.positionOnScreen = 0
     }
     
