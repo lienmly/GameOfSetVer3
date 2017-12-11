@@ -18,15 +18,42 @@ class CardView: UIView {
     let colorMatching = [Card.Color.one: #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1), .two: #colorLiteral(red: 0.5680870746, green: 0.268135684, blue: 0.7625713832, alpha: 1), .three: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)]
     
     override func draw(_ rect: CGRect) {
+        addGestureRecognizerToCard()
         drawBackground()
         drawContent()
+    }
+    
+    @objc private func selected(byHandlingGestureRecognizedBy recognizer: UITapGestureRecognizer) {
+        switch recognizer.state {
+        case .ended:
+            if state == .undecided { state = .unselected } else if state == .unselected { state = .undecided }
+            print("card number \(uniqueID) was tapped")
+        default: break
+        }
+    }
+    
+    private func addGestureRecognizerToCard() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(selected))
+        self.addGestureRecognizer(tap)
     }
     
     private func drawBackground() {
         let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         roundedRect.addClip()
-        UIColor.white.setFill()
-        roundedRect.fill()
+        
+        switch state {
+        case .unselected:
+            UIColor.white.setFill()
+            roundedRect.fill()
+        case .undecided:
+            UIColor.white.setFill()
+            roundedRect.fill()
+            UIColor.green.setStroke()
+            roundedRect.lineWidth = 5.0
+            roundedRect.stroke()
+        default: break
+        }
+        
     }
     
     private func drawContent() {

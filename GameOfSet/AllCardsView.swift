@@ -21,6 +21,7 @@ class AllCardsView: UIView {
         cardView.color = cardViewsProperties[cardIndex].3
         cardView.state = cardViewsProperties[cardIndex].4
         cardView.uniqueID = cardViewsProperties[cardIndex].5
+        
         addSubview(cardView)
         return cardView
     }
