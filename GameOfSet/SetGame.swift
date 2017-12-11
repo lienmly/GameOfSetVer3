@@ -38,7 +38,7 @@ class SetGame {
     }
     
     func dealCard(total numberOfDealCard: Int) {
-        currentDealCardNumber = numberOfDealCard
+//        currentDealCardNumber = numberOfDealCard
         for _ in 0..<numberOfDealCard {
             let randomIndex = Int(arc4random_uniform(UInt32(cards.count)))
             dealCards.append(cards.remove(at: randomIndex))

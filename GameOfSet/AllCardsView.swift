@@ -9,7 +9,7 @@
 import UIKit
 
 class AllCardsView: UIView {
-    var cardCount: Int = 27 { didSet {  setNeedsLayout() } }
+    var cardCount: Int = 0 { didSet {  setNeedsLayout() } }
     var cardViewsProperties = [(Card.Number, Card.Symbol, Card.Shading, Card.Color, Card.State, Int)]() // (_,_,_,_,_,uniqueID)
     private lazy var grid = Grid(layout: .aspectRatio(CGFloat(Constants.cardWidthToHeight)), frame: CGRect(origin: CGPoint(x: 0,y: 0), size: CGSize(width: CGFloat(bounds.size.width), height: CGFloat(bounds.size.height))))
     

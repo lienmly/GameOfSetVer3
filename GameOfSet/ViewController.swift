@@ -56,10 +56,10 @@ class ViewController: UIViewController {
         }
     }
     @IBAction func dealThreeMoreCard(_ sender: UIButton) {
-        setGame.score -= 1
-        if setGame.checkExistingSet() {
-            setGame.score -= 4
-        }
+//        setGame.score -= 1
+//        if setGame.checkExistingSet() {
+//            setGame.score -= 4
+//        }
         setGame.dealCard(total: setGame.cards.count < 3 ? setGame.cards.count : 3)
         updateViewFromModel()
     }
@@ -76,6 +76,7 @@ class ViewController: UIViewController {
     private func updateViewFromModel() {
         // Display deal cards
         allCardsView.cardCount = setGame.dealCards.count
+        allCardsView.cardViewsProperties = [] 
         for cardIndex in 0..<setGame.dealCards.count {
             let number = setGame.dealCards[cardIndex].number
             let symbol = setGame.dealCards[cardIndex].symbol
