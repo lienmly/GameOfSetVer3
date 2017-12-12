@@ -82,7 +82,8 @@ class SetGame {
                     }
                 }
             }
-            // Select & Deselect
+            
+            // Old stuff
             if selectedCards[cardUniqueIdentifier] == nil { // Card is not in selectedCards => add to selected pile
                 selectedCards[cardUniqueIdentifier] = .undecided
                 numberOfCardsCurrentlySelected += 1
@@ -103,9 +104,20 @@ class SetGame {
     }
     
     func selectCardVer2(id cardUniqueIdentifier: Int) {
-        // Select & Deselect
         if let cardIndex = dealCards.index(where: {$0.uniqueID == cardUniqueIdentifier}) {
-            if dealCards[cardIndex].state == .undecided { dealCards[cardIndex].state = .unselected } else if dealCards[cardIndex].state == .unselected { dealCards[cardIndex].state = .undecided }
+            // Select & Deselect
+            if dealCards[cardIndex].state == .undecided {
+                dealCards[cardIndex].state = .unselected
+                numberOfCardsCurrentlySelected -= 1
+            } else if dealCards[cardIndex].state == .unselected {
+                dealCards[cardIndex].state = .undecided
+                numberOfCardsCurrentlySelected += 1
+            }
+            
+            // Check match
+            if numberOfCardsCurrentlySelected == 3 {
+                checkMatch()
+            }
         }
     }
     
@@ -137,13 +149,9 @@ class SetGame {
     private func checkMatch() {
         // Gather the 3 cards we want to check if they match
         var threeToBeMatchedCards = [Card]()
-        for (cardID, cardState) in selectedCards {
-            if cardState == .undecided {
-                for card in dealCards {
-                    if card.uniqueID == cardID {
-                        threeToBeMatchedCards.append(card)
-                    }
-                }
+        for card in dealCards {
+            if card.state == .undecided {
+                threeToBeMatchedCards.append(card)
             }
         }
         
@@ -152,13 +160,13 @@ class SetGame {
             print("Checking to see if the cards are matching.")
             let isASet = isThreeCardASet(card0: threeToBeMatchedCards[0], card1: threeToBeMatchedCards[1], card2: threeToBeMatchedCards[2])
             
-            for card in threeToBeMatchedCards {
-                if (isASet) {
-                    selectedCards[card.uniqueID] = .matched
-                    print("Matched!")
-                } else {
-                    print("Not Matched! :(")
-                    selectedCards[card.uniqueID] = .notMatched
+            for index in dealCards.indices {
+                if dealCards[index].state == .undecided {
+                    if isASet {
+                        dealCards[index].state = .matched; print("Matched!")
+                    } else {
+                        dealCards[index].state = .notMatched; print("Not Matched! :(")
+                    }
                 }
             }
             
@@ -177,6 +185,10 @@ class SetGame {
         } else {
             print("There must be 3 unmatched cards to check the set rule.")
         }
+    }
+    
+    private func checkMatchVer2() {
+        
     }
     
     private func isThreeCardASet(card0: Card, card1: Card, card2: Card) -> Bool {

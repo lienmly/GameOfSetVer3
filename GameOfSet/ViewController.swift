@@ -11,50 +11,58 @@ import UIKit
 class ViewController: UIViewController {
     
     var setGame = SetGame()
-    lazy var allAvailableCardPosition = Array(0..<cardButtons.count)
-    let colorPair = [Card.Color.one:#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), .two:#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1), .three:#colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)]
-    let symbolPair = [Card.Symbol.one:"▲", .two:"●", .three:"■"]
-    var cardPosition = [Int:Int]() // [cardButtonIndex:cardUniqueID]
+//    lazy var allAvailableCardPosition = Array(0..<cardButtons.count)
+//    let colorPair = [Card.Color.one:#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), .two:#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1), .three:#colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)]
+//    let symbolPair = [Card.Symbol.one:"▲", .two:"●", .three:"■"]
+//    var cardPosition = [Int:Int]() // [cardButtonIndex:cardUniqueID]
     
-    @IBOutlet var cardButtons: [UIButton]!
+//    @IBOutlet var cardButtons: [UIButton]!
     @IBOutlet weak var allCardsView: AllCardsView!
+//        {
+//        didSet {
+//            for cardView in allCardsView.subviews {
+//                let tap = UITapGestureRecognizer(target: cardView, action: #selector(self.selected))
+//                cardView.addGestureRecognizer(tap)
+//            }
+//        }
+//    }
     @IBOutlet weak var scoreLabel: UILabel!
     @IBAction func cheat(_ sender: UIButton) {
         setGame.score -= 2
-        if setGame.checkExistingSet() {
-            let cardSet = setGame.existingSetsOnScreen[0]
-            UIView.animate(withDuration: 1.0, animations: {
-                for buttonIndex in self.cardButtons.indices {
-                    if buttonIndex == cardSet.0.positionOnScreen {
-                        self.cardButtons[buttonIndex].backgroundColor = #colorLiteral(red: 0.6397396763, green: 0.9946970633, blue: 1, alpha: 1)
-                    }
-                    if buttonIndex == cardSet.1.positionOnScreen {
-                        self.cardButtons[buttonIndex].backgroundColor = #colorLiteral(red: 0.6397396763, green: 0.9946970633, blue: 1, alpha: 1)
-                    }
-                    if buttonIndex == cardSet.2.positionOnScreen {
-                        self.cardButtons[buttonIndex].backgroundColor = #colorLiteral(red: 0.6397396763, green: 0.9946970633, blue: 1, alpha: 1)
-                    }
-                }
-            }, completion: nil)
-        }
+//        if setGame.checkExistingSet() {
+//            let cardSet = setGame.existingSetsOnScreen[0]
+//            UIView.animate(withDuration: 1.0, animations: {
+//                for buttonIndex in self.cardButtons.indices {
+//                    if buttonIndex == cardSet.0.positionOnScreen {
+//                        self.cardButtons[buttonIndex].backgroundColor = #colorLiteral(red: 0.6397396763, green: 0.9946970633, blue: 1, alpha: 1)
+//                    }
+//                    if buttonIndex == cardSet.1.positionOnScreen {
+//                        self.cardButtons[buttonIndex].backgroundColor = #colorLiteral(red: 0.6397396763, green: 0.9946970633, blue: 1, alpha: 1)
+//                    }
+//                    if buttonIndex == cardSet.2.positionOnScreen {
+//                        self.cardButtons[buttonIndex].backgroundColor = #colorLiteral(red: 0.6397396763, green: 0.9946970633, blue: 1, alpha: 1)
+//                    }
+//                }
+//            }, completion: nil)
+//        }
         setGame.existingSetsOnScreen = []
     }
     @IBAction func resetGame(_ sender: UIButton) {
         setGame.refreshGame()
         // Refresh ViewController variables
-        allAvailableCardPosition = Array(0..<cardButtons.count)
-        cardPosition = [:]
+//        allAvailableCardPosition = Array(0..<cardButtons.count)
+//        cardPosition = [:]
         // Update View
         updateViewFromModel()
     }
-    @IBAction func touchCard(_ sender: UIButton) {
-        if let buttonIndex = cardButtons.index(of: sender), let cardID = cardPosition[buttonIndex] {
-            setGame.selectCard(id: cardID)
-            updateViewFromModel()
-        } else {
-            print("(1)This button is not in cardButtons or (2)No card at this button")
-        }
-    }
+//    @IBAction func touchCard(_ sender: UIButton) {
+//        if let buttonIndex = cardButtons.index(of: sender), let cardID = cardPosition[buttonIndex] {
+//            setGame.selectCard(id: cardID)
+//            updateViewFromModel()
+//        } else {
+//            print("(1)This button is not in cardButtons or (2)No card at this button")
+//        }
+//    }
     @IBAction func dealThreeMoreCard(_ sender: UIButton) {
 //        setGame.score -= 1
 //        if setGame.checkExistingSet() {
@@ -76,6 +84,10 @@ class ViewController: UIViewController {
     private func updateViewFromModel() {
         // Display deal cards
         allCardsView.setGame = setGame
+//        for cardView in allCardsView.subviews {
+//            let tap = UITapGestureRecognizer(target: cardView, action: #selector(self.selected))
+//            cardView.addGestureRecognizer(tap)
+//        }
 //        allCardsView.cardViewsProperties = []
 //        for cardIndex in 0..<setGame.dealCards.count {
 //            let number = setGame.dealCards[cardIndex].number
@@ -150,21 +162,40 @@ class ViewController: UIViewController {
         scoreLabel.text = "Score: \(setGame.score)"
     }
     
-    private func drawCard(on cardToDrawOn: UIButton, dealCardIndex associatedDealCardIndex: Int) {
-        cardPosition[cardButtons.index(of: cardToDrawOn)!] = setGame.dealCards[associatedDealCardIndex].uniqueID
-        let shadingOnCard = setGame.dealCards[associatedDealCardIndex].shading
-        let titleColor = colorPair[setGame.dealCards[associatedDealCardIndex].color]!
-        let titleContent = symbolPair[setGame.dealCards[associatedDealCardIndex].symbol]!.multiply(by: setGame.dealCards[associatedDealCardIndex].number.rawValue)
-        cardToDrawOn.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
-        cardToDrawOn.isEnabled = true
-        
-        let attributes: [NSAttributedStringKey : Any] = [
-            .foregroundColor : titleColor.withAlphaComponent(shadingOnCard == .two ? CGFloat(0.40) : CGFloat(1)),
-            .strokeWidth : shadingOnCard == .three ? 15 : -1
-        ]
-        
-        let attribtext = NSAttributedString(string: titleContent, attributes: attributes)
-        cardToDrawOn.setAttributedTitle(attribtext, for: .normal)
+    @objc func selected(byHandlingGestureRecognizedBy recognizer: UITapGestureRecognizer) {
+        switch recognizer.state {
+        case .ended:
+//            print("Card number \(cardView.uniqueID)")
+//            setGame.selectCardVer2(id: cardView.card.uniqueID)
+//            cardView.card = setGame.dealCards[setGame.dealCards.index(where: {$0.uniqueID == cardView.card.uniqueID})!]
+
+            // Update all cards
+//            if let allCardsView = self.superview {
+//                for eachCardView in allCardsView.subviews {
+//                    eachCardView.setNeedsLayout()
+//                    eachCardView.setNeedsDisplay()
+//                }
+//            }
+            print("Card is tapped")
+        default: break
+        }
     }
+    
+//    private func drawCard(on cardToDrawOn: UIButton, dealCardIndex associatedDealCardIndex: Int) {
+//        cardPosition[cardButtons.index(of: cardToDrawOn)!] = setGame.dealCards[associatedDealCardIndex].uniqueID
+//        let shadingOnCard = setGame.dealCards[associatedDealCardIndex].shading
+//        let titleColor = colorPair[setGame.dealCards[associatedDealCardIndex].color]!
+//        let titleContent = symbolPair[setGame.dealCards[associatedDealCardIndex].symbol]!.multiply(by: setGame.dealCards[associatedDealCardIndex].number.rawValue)
+//        cardToDrawOn.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
+//        cardToDrawOn.isEnabled = true
+//
+//        let attributes: [NSAttributedStringKey : Any] = [
+//            .foregroundColor : titleColor.withAlphaComponent(shadingOnCard == .two ? CGFloat(0.40) : CGFloat(1)),
+//            .strokeWidth : shadingOnCard == .three ? 15 : -1
+//        ]
+//
+//        let attribtext = NSAttributedString(string: titleContent, attributes: attributes)
+//        cardToDrawOn.setAttributedTitle(attribtext, for: .normal)
+//    }
 }
 

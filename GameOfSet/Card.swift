@@ -29,8 +29,8 @@ struct Card {
     enum Color: Int { case one, two, three
         static var all = [Color.one, .two, .three]
     }
-    enum State: Int { case matched, notMatched, undecided, unselected
-        static var all = [State.matched, .notMatched, .undecided, .unselected]
+    enum State: Int { case matched, notMatched, undecided, unselected, removed
+        static var all = [State.matched, .notMatched, .undecided, .unselected, .removed]
     }
     
     init(number: Number, symbol: Symbol, shading: Shading, color: Color, state: State) {

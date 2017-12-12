@@ -16,7 +16,9 @@ class AllCardsView: UIView {
         let cardView = CardView()
         cardView.card = setGame.dealCards[cardIndex]
         cardView.setGame = setGame
-        
+        let tap = UITapGestureRecognizer(target: cardView, action: #selector(cardView.selected))
+        cardView.addGestureRecognizer(tap)
+
         addSubview(cardView)
         return cardView
     }
