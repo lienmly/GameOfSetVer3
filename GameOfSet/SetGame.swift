@@ -46,65 +46,77 @@ class SetGame {
         print("There are \(cards.count) cards left in the deck")
     }
     
-    func selectCard(id cardUniqueIdentifier: Int) {
-        if numberOfCardsCurrentlySelected < 3 {
-            // If there were 3 previously matched cards, remove those, and replace with new 3
-            var threeMatchedCardIDs = [Int]()
-            for (cardID, cardsState) in selectedCards {
-                if cardsState == .matched {
-                    threeMatchedCardIDs.append(cardID)
-                    selectedCards.removeValue(forKey: cardID)
-                }
-            }
-            for id in threeMatchedCardIDs {
-                if let index = dealCards.index(where: {$0.uniqueID == id}) {
-                    threePositionsOfRecentlyMatchedCards.append(dealCards[index].positionOnScreen)
-                    dealCards.remove(at: index)
-                }
-            }
-            if threeMatchedCardIDs.count == 3 {
-                print("3 cards just got matched!")
-                dealCard(total: cards.count < 3 ? cards.count : 3)
-            }
-            
-            // If there are 3 unmatched cards in the pile => remove them
-            var numberOfUnmatchedCards = 0
-            for (_, cardState) in selectedCards {
-                if cardState == .notMatched {
-                    numberOfUnmatchedCards += 1
-                }
-            }
-            
-            if numberOfUnmatchedCards == 3 {
-                for (cardID, cardState) in selectedCards {
-                    if cardState == .notMatched {
-                        selectedCards.removeValue(forKey: cardID)
-                    }
-                }
-            }
-            
-            // Old stuff
-            if selectedCards[cardUniqueIdentifier] == nil { // Card is not in selectedCards => add to selected pile
-                selectedCards[cardUniqueIdentifier] = .undecided
-                numberOfCardsCurrentlySelected += 1
-                if numberOfCardsCurrentlySelected == 1 {
-                    firstCardSelectedTimeStamp = Date()
-                }
-            } else { // Card in the currently selected pile => deselect card
-                selectedCards.removeValue(forKey: cardUniqueIdentifier)
-                numberOfCardsCurrentlySelected -= 1
-                score -= 1
-            }
-            
-            // Check match
-            if numberOfCardsCurrentlySelected == 3 {
-                checkMatch()
-            }
-        }
-    }
+//    func selectCard(id cardUniqueIdentifier: Int) {
+//        if numberOfCardsCurrentlySelected < 3 {
+//            // If there were 3 previously matched cards, remove those, and replace with new 3
+//            var threeMatchedCardIDs = [Int]()
+//            for (cardID, cardsState) in selectedCards {
+//                if cardsState == .matched {
+//                    threeMatchedCardIDs.append(cardID)
+//                    selectedCards.removeValue(forKey: cardID)
+//                }
+//            }
+//            for id in threeMatchedCardIDs {
+//                if let index = dealCards.index(where: {$0.uniqueID == id}) {
+//                    threePositionsOfRecentlyMatchedCards.append(dealCards[index].positionOnScreen)
+//                    dealCards.remove(at: index)
+//                }
+//            }
+//            if threeMatchedCardIDs.count == 3 {
+//                print("3 cards just got matched!")
+//                dealCard(total: cards.count < 3 ? cards.count : 3)
+//            }
+//
+//            // If there are 3 unmatched cards in the pile => remove them
+//            var numberOfUnmatchedCards = 0
+//            for (_, cardState) in selectedCards {
+//                if cardState == .notMatched {
+//                    numberOfUnmatchedCards += 1
+//                }
+//            }
+//
+//            if numberOfUnmatchedCards == 3 {
+//                for (cardID, cardState) in selectedCards {
+//                    if cardState == .notMatched {
+//                        selectedCards.removeValue(forKey: cardID)
+//                    }
+//                }
+//            }
+//
+//            // Select & Deselect cards
+//            if selectedCards[cardUniqueIdentifier] == nil { // Card is not in selectedCards => add to selected pile
+//                selectedCards[cardUniqueIdentifier] = .undecided
+//                numberOfCardsCurrentlySelected += 1
+//                if numberOfCardsCurrentlySelected == 1 {
+//                    firstCardSelectedTimeStamp = Date()
+//                }
+//            } else { // Card in the currently selected pile => deselect card
+//                selectedCards.removeValue(forKey: cardUniqueIdentifier)
+//                numberOfCardsCurrentlySelected -= 1
+//                score -= 1
+//            }
+//
+//            // Check match
+//            if numberOfCardsCurrentlySelected == 3 {
+//                checkMatch()
+//            }
+//        }
+//    }
     
     func selectCardVer2(id cardUniqueIdentifier: Int) {
         if let cardIndex = dealCards.index(where: {$0.uniqueID == cardUniqueIdentifier}) {
+            // Turn unmatched cards to .unselected
+            var unmatchCount = 0
+            dealCards.forEach({ if $0.state == .notMatched { unmatchCount += 1 }})
+            if unmatchCount == 3 { for i in dealCards.indices { if dealCards[i].state == .notMatched { dealCards[i].state = .unselected }}}
+            
+            // Turn matched cards to .removed
+            var matchCount = 0
+            dealCards.forEach({ if $0.state == .matched { matchCount += 1 }})
+            if matchCount == 3 {
+                for _ in 0..<matchCount { if let matchedCardIndex = dealCards.index(where: { $0.state == .matched }) { dealCards[matchedCardIndex].state = .removed }}
+            }
+            
             // Select & Deselect
             if dealCards[cardIndex].state == .undecided {
                 dealCards[cardIndex].state = .unselected
@@ -117,6 +129,18 @@ class SetGame {
             // Check match
             if numberOfCardsCurrentlySelected == 3 {
                 checkMatch()
+            }
+        }
+    }
+    
+    func removeMatchedCards() {
+        var matchCount = 0
+        dealCards.forEach({ if $0.state == .matched { matchCount += 1 }})
+        if matchCount == 3 {
+            for _ in 0..<matchCount {
+                if let matchCardIndex = dealCards.index(where: { $0.state == .matched }) {
+                    dealCards.remove(at: matchCardIndex)
+                }
             }
         }
     }

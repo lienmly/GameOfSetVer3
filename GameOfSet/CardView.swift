@@ -22,12 +22,16 @@ class CardView: UIView {
         switch recognizer.state {
         case .ended:
             setGame.selectCardVer2(id: card.uniqueID)
-
+            self.superview?.setNeedsLayout()
+            self.superview?.setNeedsDisplay()
+            
             // Update all cards
             if let allCardsView = self.superview {
                 for eachCard in allCardsView.subviews {
                     if let cardView = eachCard as? CardView {
-                        cardView.card = setGame.dealCards[setGame.dealCards.index(where: {$0.uniqueID == cardView.card.uniqueID})!]
+                        if let cardIndex = setGame.dealCards.index(where: {$0.uniqueID == cardView.card.uniqueID}) {
+                            cardView.card = setGame.dealCards[cardIndex]
+                        }
                     }
                 }
             }

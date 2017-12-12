@@ -44,6 +44,8 @@ class AllCardsView: UIView {
             configureCardView(card, grid[cellIndex]!)
             card.frame.origin = grid[cellIndex]!.origin
         }
+        
+        self.setGame.removeMatchedCards()
     }
 }
 
