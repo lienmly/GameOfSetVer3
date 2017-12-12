@@ -14,23 +14,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var allCardsView: AllCardsView!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBAction func cheat(_ sender: UIButton) {
-        setGame.score -= 2
-//        if setGame.checkExistingSet() {
-//            let cardSet = setGame.existingSetsOnScreen[0]
-//            UIView.animate(withDuration: 1.0, animations: {
-//                for buttonIndex in self.cardButtons.indices {
-//                    if buttonIndex == cardSet.0.positionOnScreen {
-//                        self.cardButtons[buttonIndex].backgroundColor = #colorLiteral(red: 0.6397396763, green: 0.9946970633, blue: 1, alpha: 1)
-//                    }
-//                    if buttonIndex == cardSet.1.positionOnScreen {
-//                        self.cardButtons[buttonIndex].backgroundColor = #colorLiteral(red: 0.6397396763, green: 0.9946970633, blue: 1, alpha: 1)
-//                    }
-//                    if buttonIndex == cardSet.2.positionOnScreen {
-//                        self.cardButtons[buttonIndex].backgroundColor = #colorLiteral(red: 0.6397396763, green: 0.9946970633, blue: 1, alpha: 1)
-//                    }
-//                }
-//            }, completion: nil)
-//        }
+        // TODO: animate background of cards
+//        setGame.score -= 2
+        if setGame.checkExistingSet(sender: sender.tag) {
+            print("View Controller: There is set on screen")
+            updateViewFromModel()
+        }
         setGame.existingSetsOnScreen = []
     }
     @IBAction func resetGame(_ sender: UIButton) {
@@ -42,6 +31,7 @@ class ViewController: UIViewController {
 //        if setGame.checkExistingSet() {
 //            setGame.score -= 4
 //        }
+        let _ = setGame.checkExistingSet(sender: sender.tag)
         setGame.dealCard(total: setGame.cards.count < 3 ? setGame.cards.count : 3)
         updateViewFromModel()
     }
@@ -64,6 +54,7 @@ class ViewController: UIViewController {
             dealThreeMoreCardButton.isEnabled = false
         }
         // Set score label
+        // TODO: Tap gesture doesn't update score
         scoreLabel.text = "Score: \(setGame.score)"
     }
 }

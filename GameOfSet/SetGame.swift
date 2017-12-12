@@ -11,7 +11,6 @@ import Foundation
 class SetGame {
     var cards = [Card]()
     var dealCards = [Card]()
-    var selectedCards = [Int:Card.State]() // [cardID:Card.State]
     var numberOfCardsCurrentlySelected = 0
     var threePositionsOfRecentlyMatchedCards = [Int]()
     var score = 0
@@ -23,10 +22,8 @@ class SetGame {
     }
     
     func refreshGame() {
-        // Reset all class variables
         cards = []
         dealCards = []
-        selectedCards = [:]
         numberOfCardsCurrentlySelected = 0
         threePositionsOfRecentlyMatchedCards = []
         score = 0
@@ -35,7 +32,8 @@ class SetGame {
         dealCard(total: 12)
     }
     
-    func dealCard(total numberOfDealCard: Int) {
+    func dealCard(total numberOfDealCard: Int, sender tagNumber: Int = 0) {
+        if tagNumber == 200 { score -= 1 } // Deal 3 more cards
         for _ in 0..<numberOfDealCard {
             let randomIndex = Int(arc4random_uniform(UInt32(cards.count)))
             dealCards.append(cards.remove(at: randomIndex))
@@ -64,6 +62,7 @@ class SetGame {
             } else if dealCards[cardIndex].state == .unselected {
                 dealCards[cardIndex].state = .undecided
                 numberOfCardsCurrentlySelected += 1
+                if numberOfCardsCurrentlySelected == 1 { firstCardSelectedTimeStamp = Date() }
             }
             
             // Check match
@@ -85,20 +84,15 @@ class SetGame {
         }
     }
     
-    func checkExistingSet() -> Bool {
-        // Penalize pressing Deal 3 More Cards if there is a Set available in the visible cards
+    func checkExistingSet(sender tagNumber: Int) -> Bool {
+        if tagNumber == 100 { score -= 2 } else if tagNumber == 200 { score -= 4 }// (1) Cheat (2) Deal 3 more cards
         for card1 in dealCards {
             for card2 in dealCards {
                 for card3 in dealCards {
                     if card1.uniqueID != card2.uniqueID && card2.uniqueID != card3.uniqueID && card1.uniqueID != card3.uniqueID {
-                        let card1State = selectedCards[card1.uniqueID]
-                        let card2State = selectedCards[card2.uniqueID]
-                        let card3State = selectedCards[card3.uniqueID]
-                        if !(card1State == .matched || card2State == .matched || card3State == .matched) {
-                            let isASet = isThreeCardASet(card0: card1, card1: card2, card2: card3)
-                            if isASet {
-                                existingSetsOnScreen.append((card1, card2, card3))
-                            }
+                        let isASet = isThreeCardASet(card0: card1, card1: card2, card2: card3)
+                        if isASet {
+                            existingSetsOnScreen.append((card1, card2, card3))
                         }
                     }
                 }
@@ -137,22 +131,20 @@ class SetGame {
             // Set score
             if (isASet) {
                 let timeToFindMatch = Date().timeIntervalSince(firstCardSelectedTimeStamp)
+                print("time interval = \(timeToFindMatch)")
                 switch timeToFindMatch {
-                case 1..<5: score += 10
+                case 0..<5: score += 10
                 case 5..<10: score += 6
                 default: score += 3
                 }
             } else {
                 score -= 5
             }
+            print("score is now: \(score)")
             numberOfCardsCurrentlySelected = 0
         } else {
             print("There must be 3 unmatched cards to check the set rule.")
         }
-    }
-    
-    private func checkMatchVer2() {
-        
     }
     
     private func isThreeCardASet(card0: Card, card1: Card, card2: Card) -> Bool {
