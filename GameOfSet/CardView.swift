@@ -38,21 +38,15 @@ class CardView: UIView {
     private func drawBackground() {
         let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         roundedRect.addClip()
-        
-        // TODO: Factor this, too many repeats
+        UIColor.white.setFill()
+        roundedRect.fill()
+    
         switch card.state {
-        case .unselected:
-            UIColor.white.setFill()
-            roundedRect.fill()
         case .undecided:
-            UIColor.white.setFill()
-            roundedRect.fill()
             UIColor.green.setStroke()
             roundedRect.lineWidth = bounds.height*Constants.strokeWidthToSymbolFrameHeight
             roundedRect.stroke()
         case .notMatched:
-            UIColor.white.setFill()
-            roundedRect.fill()
             UIColor.red.setStroke()
             roundedRect.lineWidth = bounds.height*Constants.strokeWidthToSymbolFrameHeight
             roundedRect.stroke()
