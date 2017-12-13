@@ -36,6 +36,12 @@ class CardView: UIView {
                     }
                 }
             }
+            
+            // Update score label
+            let scoreLabel = self.superview?.superview?.subviews[1].subviews[0].subviews[1].subviews[0]
+            if let label = scoreLabel as? UILabel {
+                label.text = "Score: \(setGame.score)"
+            }
         default: break
         }
     }
@@ -62,7 +68,6 @@ class CardView: UIView {
         }
         
         if setGame.existingSetsOnScreen.count > 0 {
-            print("Card View: There are set on screen!")
             let cardSet = setGame.existingSetsOnScreen[setGame.existingSetsOnScreen.count - 1]
             if card.uniqueID == cardSet.0.uniqueID || card.uniqueID == cardSet.1.uniqueID ||
                 card.uniqueID == cardSet.2.uniqueID {

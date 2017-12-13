@@ -47,7 +47,6 @@ class ViewController: UIViewController {
             dealThreeMoreCardButton.isEnabled = false
         }
         // Set score label
-        // TODO: Tap gesture doesn't update score
         scoreLabel.text = "Score: \(setGame.score)"
     }
 }
