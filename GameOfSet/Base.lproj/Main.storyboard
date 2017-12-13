@@ -29,6 +29,7 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="56X-zn-EAc" appends="YES" id="QJw-Py-jL5"/>
+                                            <outletCollection property="gestureRecognizers" destination="cOZ-eC-ZUn" appends="YES" id="G91-m8-9bN"/>
                                         </connections>
                                     </view>
                                     <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="P9R-Uy-BpU" userLabel="BottomButtonView">
@@ -137,6 +138,11 @@
                         <action selector="swipeThreeMoreCard:" destination="BYZ-38-t0r" id="nua-rs-xXl"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <rotationGestureRecognizer id="cOZ-eC-ZUn">
+                    <connections>
+                        <action selector="shuffleCards:" destination="BYZ-38-t0r" id="DgS-X1-hlj"/>
+                    </connections>
+                </rotationGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="24.800000000000001" y="31.934032983508249"/>
         </scene>

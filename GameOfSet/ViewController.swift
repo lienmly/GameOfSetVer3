@@ -30,6 +30,15 @@ class ViewController: UIViewController {
         default: break
         }
     }
+    @IBAction func shuffleCards(_ sender: UIRotationGestureRecognizer) {
+        switch sender.state {
+        case .ended:
+            setGame.shuffleCurrentlyDisplayedCards()
+            updateViewFromModel()
+        default: break
+        }
+        
+    }
     @IBAction func dealThreeMoreCard(_ sender: UIButton) {
         dealThreeCards()
     }
@@ -50,7 +59,6 @@ class ViewController: UIViewController {
     
     private func updateViewFromModel() {
         // TODO: Make cards drawn nicely on landscape mode as well
-        // TODO: Rotation gesture: cards randomly shuffle
         // Display deal cards
         allCardsView.setGame = setGame
 

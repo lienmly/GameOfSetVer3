@@ -72,6 +72,17 @@ class SetGame {
         }
     }
     
+    func shuffleCurrentlyDisplayedCards() {
+        var tempDealCard = [Card]()
+        let numberOfDisplayedCards = dealCards.count
+        for _ in 0..<numberOfDisplayedCards {
+            let randomIndex = Int(arc4random_uniform(UInt32(dealCards.count)))
+            let card = dealCards.remove(at: randomIndex)
+            tempDealCard.append(card)
+        }
+        dealCards = tempDealCard
+    }
+    
     func removeMatchedCards() {
         var matchCount = 0
         dealCards.forEach({ if $0.state == .matched { matchCount += 1 }})
