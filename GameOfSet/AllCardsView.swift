@@ -9,7 +9,7 @@
 import UIKit
 
 class AllCardsView: UIView {
-    var setGame = SetGame() { didSet {  setNeedsLayout(); setNeedsDisplay() } }
+    var setGame = SetGame() { didSet { setNeedsLayout(); setNeedsDisplay() }}
     private lazy var grid = Grid(layout: .aspectRatio(CGFloat(Constants.cardWidthToHeight)), frame: CGRect(origin: CGPoint(x: 0,y: 0), size: CGSize(width: CGFloat(bounds.size.width), height: CGFloat(bounds.size.height))))
     
     private func createCard(index cardIndex: Int) -> CardView {
@@ -33,6 +33,9 @@ class AllCardsView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        // Recalculate grid based on device's orientation
+        grid = Grid(layout: .aspectRatio(CGFloat(Constants.cardWidthToHeight)), frame: CGRect(origin: CGPoint(x: 0,y: 0), size: CGSize(width: CGFloat(bounds.size.width), height: CGFloat(bounds.size.height))))
         grid.cellCount = self.setGame.dealCards.count
         
         // Empty all subviews
