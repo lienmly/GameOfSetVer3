@@ -11,66 +11,29 @@
         </tr>
         <tr>
             <td>
-                <img src="https://github.com/lienmly/GameOfSet/blob/master/images/landscape.png" height="200" >
+                <img src="https://github.com/lienmly/GameOfSetCustomView/blob/master/images/landscape.png" height="200" >
             </td>
             <td>
                 <ul>
                     <li>Landscape View</li>
-                    <li>Cards are being selected</li>
                 </ul>
             </td>
         </tr>
         <tr>
             <td>
-                <img src="https://github.com/lienmly/GameOfSet/blob/master/images/matched.png" height="350" >
+                <img src="https://github.com/lienmly/GameOfSetCustomView/blob/master/images/portrait.png" height="350" >
             </td>
             <td>
                 <ul>
-                    <li>Found a Set!</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="https://github.com/lienmly/GameOfSet/blob/master/images/normal.png" height="350" >
-            </td>
-            <td>
-                <ul>
-                    <li>New Game.</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="https://github.com/lienmly/GameOfSet/blob/master/images/undecided.png" height="350" >
-            </td>
-            <td>
-                <ul>
+                    <li>Portrait View/li>
                     <li>Cards are being selected.</li>
                 </ul>
             </td>
         </tr>
-        <tr>
-            <td>
-                <img src="https://github.com/lienmly/GameOfSet/blob/master/images/unmatched.png" height="350" >
-            </td>
-            <td>
-                <ul>
-                    <li>Wrong set! :weary:</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="https://github.com/lienmly/GameOfSet/blob/master/images/cheat.png" height="350" >
-            </td>
-            <td>
-                <ul>
-                    <li>Matched cards: yellow.</li>
-                    <li>Cheated cards: blue.</li>
-                </ul>
-            </td>
-        </tr>
+        
+        
+        
+        
     </tbody>
 </table>
 
