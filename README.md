@@ -16,6 +16,7 @@
             <td>
                 <ul>
                     <li>Landscape View</li>
+                    <li>Cards are being selected.</li>
                 </ul>
             </td>
         </tr>
@@ -25,8 +26,7 @@
             </td>
             <td>
                 <ul>
-                    <li>Portrait View/li>
-                    <li>Cards are being selected.</li>
+                    <li>Portrait View</li>
                 </ul>
             </td>
         </tr>
