@@ -86,6 +86,9 @@ class SetGame {
     
     func checkExistingSet(sender tagNumber: Int) -> Bool {
         if tagNumber == 100 { score -= 2 } else if tagNumber == 200 { score -= 4 }// (1) Cheat (2) Deal 3 more cards
+        if tagNumber == 200 {
+            
+        }
         for card1 in dealCards {
             for card2 in dealCards {
                 for card3 in dealCards {

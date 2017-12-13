@@ -26,6 +26,10 @@
                                     <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="QMF-zd-Dio" userLabel="AllCardsView" customClass="AllCardsView" customModule="GameOfSet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="365" height="539"/>
                                         <color key="backgroundColor" red="0.99953407049999998" green="0.64555009299999999" blue="0.98442482949999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="56X-zn-EAc" appends="YES" id="QJw-Py-jL5"/>
+                                        </connections>
                                     </view>
                                     <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="P9R-Uy-BpU" userLabel="BottomButtonView">
                                         <rect key="frame" x="0.0" y="547" width="365" height="90"/>
@@ -128,6 +132,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="down" id="56X-zn-EAc">
+                    <connections>
+                        <action selector="swipeThreeMoreCard:" destination="BYZ-38-t0r" id="nua-rs-xXl"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="24.800000000000001" y="31.934032983508249"/>
         </scene>

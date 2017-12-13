@@ -23,22 +23,34 @@ class ViewController: UIViewController {
         setGame.refreshGame()
         updateViewFromModel()
     }
+    @IBAction func swipeThreeMoreCard(_ sender: UISwipeGestureRecognizer) {
+        switch sender.state {
+        case .ended:
+            dealThreeCards()
+        default: break
+        }
+    }
     @IBAction func dealThreeMoreCard(_ sender: UIButton) {
-        let _ = setGame.checkExistingSet(sender: sender.tag)
-        setGame.dealCard(total: setGame.cards.count < 3 ? setGame.cards.count : 3)
-        updateViewFromModel()
+        dealThreeCards()
     }
     @IBOutlet weak var dealThreeMoreCardButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Deal 12 cards at game start
         setGame.dealCard(total: 12)
         updateViewFromModel()
     }
     
+    private func dealThreeCards() {
+        let _ = setGame.checkExistingSet(sender: Constants.dealThreeMoreCardsActionTag)
+        setGame.existingSetsOnScreen = []
+        setGame.dealCard(total: setGame.cards.count < 3 ? setGame.cards.count : 3, sender: Constants.dealThreeMoreCardsActionTag)
+        updateViewFromModel()
+    }
+    
     private func updateViewFromModel() {
+        // TODO: Make cards drawn nicely on landscape mode as well
+        // TODO: Rotation gesture: cards randomly shuffle
         // Display deal cards
         allCardsView.setGame = setGame
 
@@ -48,6 +60,13 @@ class ViewController: UIViewController {
         }
         // Set score label
         scoreLabel.text = "Score: \(setGame.score)"
+    }
+}
+
+extension ViewController {
+    private struct Constants {
+        static let dealThreeMoreCardsActionTag = 200
+        static let cheatActionTag = 100
     }
 }
 
