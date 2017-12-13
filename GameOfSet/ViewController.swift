@@ -58,7 +58,6 @@ class ViewController: UIViewController {
     }
     
     private func updateViewFromModel() {
-        // TODO: Make cards drawn nicely on landscape mode as well
         // Display deal cards
         allCardsView.setGame = setGame
 
