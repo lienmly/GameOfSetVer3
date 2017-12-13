@@ -19,6 +19,7 @@ class CardView: UIView {
     }
     
     @objc func selected(byHandlingGestureRecognizedBy recognizer: UITapGestureRecognizer) {
+        setGame.existingSetsOnScreen = []
         switch recognizer.state {
         case .ended:
             setGame.selectCardVer2(id: card.uniqueID)
@@ -61,9 +62,13 @@ class CardView: UIView {
         }
         
         if setGame.existingSetsOnScreen.count > 0 {
-            print("There are set on screen!")
-            animateCheatedCards(roundedRect)
-            setGame.existingSetsOnScreen = []
+            print("Card View: There are set on screen!")
+            let cardSet = setGame.existingSetsOnScreen[setGame.existingSetsOnScreen.count - 1]
+            if card.uniqueID == cardSet.0.uniqueID || card.uniqueID == cardSet.1.uniqueID ||
+                card.uniqueID == cardSet.2.uniqueID {
+                UIColor.blue.setFill()
+                roundedRect.fill()
+            }
         }
     }
     
@@ -71,20 +76,6 @@ class CardView: UIView {
         let insetFrame = bounds.insetBy(dx: symbolGapToCardEdge, dy: symbolGapToCardEdge)
         let singleSymbolFrame = insetFrame.insetBy(dx: 0, dy: insetFrame.height/2.9)
         drawSymbol(singleSymbolFrame: singleSymbolFrame)
-    }
-    
-    private func animateCheatedCards(_ cardBG: UIBezierPath) {
-        let cardSet = setGame.existingSetsOnScreen[0]
-        UIView.animate(withDuration: 1.0, animations: {
-            if self.card.uniqueID == cardSet.0.uniqueID { drawBGBlue(cardBG) }
-            if self.card.uniqueID == cardSet.1.uniqueID { drawBGBlue(cardBG) }
-            if self.card.uniqueID == cardSet.2.uniqueID { drawBGBlue(cardBG) }
-        }, completion: nil)
-        
-        func drawBGBlue(_ cardBG: UIBezierPath) {
-            UIColor.blue.setFill()
-            cardBG.fill()
-        }
     }
     
     private func drawSymbol(singleSymbolFrame: CGRect) {

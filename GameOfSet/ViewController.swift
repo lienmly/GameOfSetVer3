@@ -14,23 +14,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var allCardsView: AllCardsView!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBAction func cheat(_ sender: UIButton) {
-        // TODO: animate background of cards
-//        setGame.score -= 2
+        setGame.existingSetsOnScreen = []
         if setGame.checkExistingSet(sender: sender.tag) {
-            print("View Controller: There is set on screen")
             updateViewFromModel()
         }
-        setGame.existingSetsOnScreen = []
     }
     @IBAction func resetGame(_ sender: UIButton) {
         setGame.refreshGame()
         updateViewFromModel()
     }
     @IBAction func dealThreeMoreCard(_ sender: UIButton) {
-//        setGame.score -= 1
-//        if setGame.checkExistingSet() {
-//            setGame.score -= 4
-//        }
         let _ = setGame.checkExistingSet(sender: sender.tag)
         setGame.dealCard(total: setGame.cards.count < 3 ? setGame.cards.count : 3)
         updateViewFromModel()
