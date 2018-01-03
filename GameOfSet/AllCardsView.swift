@@ -26,8 +26,7 @@ class AllCardsView: UIView {
     private func configureCardView(_ view: UIView, _ frame: CGRect) {
         let delta = frame.width*Constants.cardEdgeWidthToCellFrameSize
         let insetFrame = frame.insetBy(dx: delta, dy: delta)
-        view.frame.size = CGSize.init(width: insetFrame.width, height: insetFrame.height)
-        view.frame.origin = insetFrame.origin
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.7, delay: 0.0, options: .layoutSubviews, animations: {view.frame = insetFrame}, completion: nil)
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
     }
     
