@@ -44,8 +44,8 @@
                                                             <button opaque="NO" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTr-DM-zHo">
                                                                 <rect key="frame" x="0.0" y="0.0" width="198" height="35"/>
                                                                 <color key="backgroundColor" red="0.98196102687553155" green="0.49091164648763264" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
-                                                                <state key="normal" title="Deal 3 Cards">
+                                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="22"/>
+                                                                <state key="normal" title="Deal">
                                                                     <color key="titleColor" red="0.57919406890000003" green="0.1280144453" blue="0.57268613580000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
                                                                 <connections>
