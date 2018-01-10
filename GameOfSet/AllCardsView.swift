@@ -26,7 +26,9 @@ class AllCardsView: UIView {
     private func configureCardView(_ view: UIView, _ frame: CGRect) {
         let delta = frame.width*Constants.cardEdgeWidthToCellFrameSize
         let insetFrame = frame.insetBy(dx: delta, dy: delta)
-        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.7, delay: 0.0, options: .layoutSubviews, animations: {view.frame = insetFrame}, completion: nil)
+//        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.7, delay: 0.0, options: .layoutSubviews, animations: {view.frame = insetFrame}, completion: nil)
+        // TODO: bug - animation only run when "deal"
+        view.frame = insetFrame
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
     }
     

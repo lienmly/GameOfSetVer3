@@ -25,8 +25,8 @@ class ViewController: UIViewController {
     }
     @IBAction func swipeThreeMoreCard(_ sender: UISwipeGestureRecognizer) {
         switch sender.state {
-        case .ended:
-            dealThreeCards()
+        case .ended: break
+//            dealThreeCards()
         default: break
         }
     }
@@ -58,7 +58,6 @@ class ViewController: UIViewController {
     }
     
     private func updateViewFromModel() {
-        // TODO: add animation to the rearrangement of cards. when cards are added or disappear from the game the cards should move smoothly (not jump instantly) to their new positions.
         // Display deal cards
         allCardsView.setGame = setGame
 
